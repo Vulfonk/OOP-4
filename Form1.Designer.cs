@@ -28,35 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.dataGridViewShapes = new System.Windows.Forms.DataGridView();
+            this.buttonShowShapes = new System.Windows.Forms.Button();
+            this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShapes)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // pictureBox
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(122, 91);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.pictureBox.Location = new System.Drawing.Point(451, 12);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(735, 654);
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
+            this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
+            // 
+            // dataGridViewShapes
+            // 
+            this.dataGridViewShapes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewShapes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.X,
+            this.Y});
+            this.dataGridViewShapes.Location = new System.Drawing.Point(12, 12);
+            this.dataGridViewShapes.Name = "dataGridViewShapes";
+            this.dataGridViewShapes.Size = new System.Drawing.Size(419, 625);
+            this.dataGridViewShapes.TabIndex = 1;
+            // 
+            // buttonShowShapes
+            // 
+            this.buttonShowShapes.Location = new System.Drawing.Point(343, 643);
+            this.buttonShowShapes.Name = "buttonShowShapes";
+            this.buttonShowShapes.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowShapes.TabIndex = 2;
+            this.buttonShowShapes.Text = "Show";
+            this.buttonShowShapes.UseVisualStyleBackColor = true;
+            this.buttonShowShapes.Click += new System.EventHandler(this.buttonShowShapes_Click);
+            // 
+            // X
+            // 
+            this.X.HeaderText = "X";
+            this.X.Name = "X";
+            // 
+            // Y
+            // 
+            this.Y.HeaderText = "Y";
+            this.Y.Name = "Y";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1198, 678);
+            this.Controls.Add(this.buttonShowShapes);
+            this.Controls.Add(this.dataGridViewShapes);
+            this.Controls.Add(this.pictureBox);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShapes)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.DataGridView dataGridViewShapes;
+        private System.Windows.Forms.Button buttonShowShapes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn X;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Y;
     }
 }
 
