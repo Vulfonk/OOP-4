@@ -13,6 +13,7 @@ namespace OOP_4
 {
     public partial class Form1 : Form
     {
+        Point firstPoint, lastPoint;
         VectorCCircle shapes = new VectorCCircle(1);
         public Form1()
         {
@@ -24,41 +25,174 @@ namespace OOP_4
             
         }
 
-        private void pictureBox_MouseClick(object sender, MouseEventArgs e)
+        private void pictureBox_MouseClick(object sender, MouseEventArgs e  )
         {
             CCircle cCircle = new CCircle(e.X, e.Y);
-            shapes.resize(100);
+            //shapes.resize(100);
             if (shapes.getK() == shapes.size())
             {
-                //shapes.resize(shapes.getK() + 1);
+                shapes.resize(shapes.getK() + 1);
             }
             shapes[(int)shapes.getK()] = cCircle;
+            PaintEllipse();
+
+        }
+
+        private void drawEllipse()
+        {
+           
         }
 
         private void buttonShowShapes_Click(object sender, EventArgs e)
         {
+            dataGridViewShapes.Rows.Clear();
             for(int i = 0; i < shapes.size(); i++)
             {
                 dataGridViewShapes.Rows.Add(shapes[i].getX(), shapes[i].getY());
             }
         }
+
+        private void dataGridViewShapes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void PaintEllipse()
+        {
+            var graphics = pictureBox.CreateGraphics();
+            graphics.Clear(BackColor);
+            for (int i = 0; i < shapes.size(); i++)
+            {
+                if (shapes[i] != null)
+                {
+                    graphics.FillEllipse(
+                        Brushes.Red, 
+                        shapes[i].getX() - shapes[i].getRadius(), 
+                        shapes[i].getY() - shapes[i].getRadius(), 
+                        shapes[i].getRadius() * 2, 
+                        shapes[i].getRadius() * 2
+                        );
+                }
+            }
+        }
+
+        private void pictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            PaintEllipse();
+
+        }
+
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            firstPoint._x = e.X;
+            firstPoint._y = e.Y;
+
+        }
+
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            //Point lastPoint = new Point(e.X, e.Y);
+
+        }
+
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            lastPoint._x = e.X;
+            lastPoint._y = e.Y;
+            new Rectangle(firstPoint, lastPoint);
+
+        }
     }
 
-    class CCircle
+    class Rectangle
     {
-        private int _x, _y;
-        public CCircle(int x, int y)
+        Point _LeftUpperPoint;
+        Point _RightLowerPoint;
+        
+
+        private void PointPosition(int xFirst, int yFirst, int xLast, int yLast)
+        {
+            _LeftUpperPoint = new Point(
+                xFirst > xLast? xLast : xFirst,
+                yFirst > yLast ? yFirst : yLast);
+            _RightLowerPoint = new Point(
+                xFirst < xLast ? xLast : xFirst,
+                yFirst < yLast ? yFirst : yLast);
+        }
+        public Rectangle(Point first, Point last)
+        {
+            PointPosition(first._x, first._y, last._x, last._y);
+        }
+
+        public Rectangle(int xFirst, int yFirst, int xLast, int yLast)
+        {
+            PointPosition(xFirst, yFirst, xLast, yLast);
+        }
+        public Point LeftUpperPoint()
+        {
+            return _LeftUpperPoint;
+        }
+        public Point RightLowerPoint()
+        {
+            return _RightLowerPoint;
+        }
+    }
+    class Point
+    {
+        public int _x, _y;
+        public Point(int x, int y)
         {
             _x = x;
             _y = y;
         }
+        public Point(Point point)
+        {
+            _x = point._x;
+            _y = point._y;
+        }
+
+    }
+
+    class CCircle
+    {
+        private Point _position;
+        private uint _radius;
+        public CCircle(Point position)
+        {
+            _position = position;
+        }
+        public CCircle(int x, int y, uint radius = 50)
+        {
+            _position = new Point(x, y);
+            /*_position._x = x;
+            _position._y = y;*/
+            _radius = radius;
+        }
+
+        public Point getPosition()
+        {
+            return _position;
+        }
         public int getX()
         {
-            return _x;
+            return _position._x;
         }
         public int getY()
         {
-            return _y;
+            return _position._y;
+        }
+        public uint getRadius()
+        {
+            return _radius;
+        }
+        public CCircle(CCircle Circle)
+        {
+            _position = Circle._position;
+            _radius = Circle._radius;
         }
     }
 
@@ -79,7 +213,7 @@ namespace OOP_4
         }
         public void resize(uint newSize)
         {
-            CCircle[] _shapes1 = new CCircle[_size];
+            CCircle[] _shapes1 = new CCircle[newSize];
             uint size = _size < newSize ? _size : newSize;
             for(int i = 0; i < size; i++)
             {
@@ -149,5 +283,11 @@ namespace OOP_4
                 _shapes[i] = null;
             }
         }
+    }
+    enum PointPositionRectangle{
+        LEFT_UPPER,
+        RIGHT_UPPER,
+        LEFT_LOWER,
+        RIGHT_LOWER
     }
 }

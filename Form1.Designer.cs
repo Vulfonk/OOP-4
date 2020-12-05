@@ -30,9 +30,9 @@
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.dataGridViewShapes = new System.Windows.Forms.DataGridView();
-            this.buttonShowShapes = new System.Windows.Forms.Button();
             this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonShowShapes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShapes)).BeginInit();
             this.SuspendLayout();
@@ -44,7 +44,12 @@
             this.pictureBox.Size = new System.Drawing.Size(735, 654);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
+            this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
+            this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
+            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             // 
             // dataGridViewShapes
             // 
@@ -56,16 +61,7 @@
             this.dataGridViewShapes.Name = "dataGridViewShapes";
             this.dataGridViewShapes.Size = new System.Drawing.Size(419, 625);
             this.dataGridViewShapes.TabIndex = 1;
-            // 
-            // buttonShowShapes
-            // 
-            this.buttonShowShapes.Location = new System.Drawing.Point(343, 643);
-            this.buttonShowShapes.Name = "buttonShowShapes";
-            this.buttonShowShapes.Size = new System.Drawing.Size(75, 23);
-            this.buttonShowShapes.TabIndex = 2;
-            this.buttonShowShapes.Text = "Show";
-            this.buttonShowShapes.UseVisualStyleBackColor = true;
-            this.buttonShowShapes.Click += new System.EventHandler(this.buttonShowShapes_Click);
+            this.dataGridViewShapes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewShapes_CellContentClick);
             // 
             // X
             // 
@@ -76,6 +72,16 @@
             // 
             this.Y.HeaderText = "Y";
             this.Y.Name = "Y";
+            // 
+            // buttonShowShapes
+            // 
+            this.buttonShowShapes.Location = new System.Drawing.Point(343, 643);
+            this.buttonShowShapes.Name = "buttonShowShapes";
+            this.buttonShowShapes.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowShapes.TabIndex = 2;
+            this.buttonShowShapes.Text = "Show";
+            this.buttonShowShapes.UseVisualStyleBackColor = true;
+            this.buttonShowShapes.Click += new System.EventHandler(this.buttonShowShapes_Click);
             // 
             // Form1
             // 
