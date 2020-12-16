@@ -13,8 +13,11 @@ namespace OOP_4
 {
     public partial class Form1 : Form
     {
-        Point firstPoint, lastPoint;
-        VectorCCircle shapes = new VectorCCircle(1);
+
+        bool ctrl_key = false;
+
+        VectorCCircle<CCircleViewer> shapes = new VectorCCircle<CCircleViewer>(1);
+
         public Form1()
         {
             InitializeComponent();
@@ -22,272 +25,157 @@ namespace OOP_4
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
-        private void pictureBox_MouseClick(object sender, MouseEventArgs e  )
+        private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            CCircle cCircle = new CCircle(e.X, e.Y);
-            //shapes.resize(100);
-            if (shapes.getK() == shapes.size())
+            if (!(e.Button == MouseButtons.Left))
             {
-                shapes.resize(shapes.getK() + 1);
+                return;
             }
-            shapes[(int)shapes.getK()] = cCircle;
-            PaintEllipse();
+            if (SelectionMode_checkBox.Checked)
+            {
+                bool flag = true;
+                for (int i = (int)shapes.size() - 1; i >= 0; i--)
+                {
+                    if (shapes[i] == null)
+                        continue;
+                    if (ctrl_key)
+                    {
+                        if (shapes[i].IsSelected(e))
+                        {
+                            shapes[i]._enabled = !shapes[i]._enabled;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (shapes[i].IsSelected(e) && flag)
+                        {
+                            shapes[i]._enabled = true;
+                            flag = false;
+                        }
+                        else
+                        {
+                            shapes[i]._enabled = false;
+                        }
+                    }
 
-        }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < shapes.getK(); i++)
+                {
+                    if(shapes[i] == null)
+                    {
+                        continue;
+                    }
+                    shapes[i]._enabled = false;
+                }
 
-        private void drawEllipse()
-        {
-           
+                CCircleViewer cCircle = new CCircleViewer(e.Location, 30, Brushes.Red, true);
+
+                if (shapes.getK() == shapes.size())
+                {
+                    shapes.resize(shapes.getK() + 1);
+                }
+                shapes[(int)shapes.getK()] = cCircle;
+            }
+            pictureBox.Invalidate();
         }
 
         private void buttonShowShapes_Click(object sender, EventArgs e)
         {
             dataGridViewShapes.Rows.Clear();
-            for(int i = 0; i < shapes.size(); i++)
+            for (int i = 0; i < shapes.size(); i++)
             {
                 dataGridViewShapes.Rows.Add(shapes[i].getX(), shapes[i].getY());
             }
         }
 
-        private void dataGridViewShapes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void pictureBox_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void PaintEllipse()
-        {
-            var graphics = pictureBox.CreateGraphics();
-            graphics.Clear(BackColor);
-            for (int i = 0; i < shapes.size(); i++)
-            {
-                if (shapes[i] != null)
-                {
-                    graphics.FillEllipse(
-                        Brushes.Red, 
-                        shapes[i].getX() - shapes[i].getRadius(), 
-                        shapes[i].getY() - shapes[i].getRadius(), 
-                        shapes[i].getRadius() * 2, 
-                        shapes[i].getRadius() * 2
-                        );
-                }
-            }
-        }
-
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            PaintEllipse();
+            for (int i = 0; i < shapes.size(); i++)
+            {
+                if (shapes[i] == null)
+                    continue;
+                shapes[i].Draw(e);
+            }
 
         }
 
-        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            firstPoint._x = e.X;
-            firstPoint._y = e.Y;
-
+            ctrl_key = e.Control;
+            if(e.KeyCode == Keys.Delete)
+            {
+                for(int i = 0; i < shapes.size(); i++)
+                {
+                    if(shapes[i] == null)
+                    {
+                        continue;
+                    }
+                    if (shapes[i]._enabled)
+                    {
+                        shapes.delCShape((uint)i);
+                    }
+                }
+            }
+            pictureBox.Invalidate();
         }
 
-        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            //Point lastPoint = new Point(e.X, e.Y);
-
-        }
-
-        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
-        {
-            lastPoint._x = e.X;
-            lastPoint._y = e.Y;
-            new Rectangle(firstPoint, lastPoint);
-
+            ctrl_key = e.Control;
         }
     }
 
-    class Rectangle
+    class CCircleViewer : CCircle
     {
-        Point _LeftUpperPoint;
-        Point _RightLowerPoint;
-        
-
-        private void PointPosition(int xFirst, int yFirst, int xLast, int yLast)
+        private Brush _color;
+        public bool _enabled = false;
+        public CCircleViewer(Brush brush, bool enabled)
         {
-            _LeftUpperPoint = new Point(
-                xFirst > xLast? xLast : xFirst,
-                yFirst > yLast ? yFirst : yLast);
-            _RightLowerPoint = new Point(
-                xFirst < xLast ? xLast : xFirst,
-                yFirst < yLast ? yFirst : yLast);
+            _color = brush;
+            _enabled = enabled;
         }
-        public Rectangle(Point first, Point last)
-        {
-            PointPosition(first._x, first._y, last._x, last._y);
-        }
-
-        public Rectangle(int xFirst, int yFirst, int xLast, int yLast)
-        {
-            PointPosition(xFirst, yFirst, xLast, yLast);
-        }
-        public Point LeftUpperPoint()
-        {
-            return _LeftUpperPoint;
-        }
-        public Point RightLowerPoint()
-        {
-            return _RightLowerPoint;
-        }
-    }
-    class Point
-    {
-        public int _x, _y;
-        public Point(int x, int y)
-        {
-            _x = x;
-            _y = y;
-        }
-        public Point(Point point)
-        {
-            _x = point._x;
-            _y = point._y;
-        }
-
-    }
-
-    class CCircle
-    {
-        private Point _position;
-        private uint _radius;
-        public CCircle(Point position)
+        public CCircleViewer(Point position, uint radius, Brush brush, bool enabled)
         {
             _position = position;
-        }
-        public CCircle(int x, int y, uint radius = 50)
-        {
-            _position = new Point(x, y);
-            /*_position._x = x;
-            _position._y = y;*/
             _radius = radius;
+            _color = brush;
+            _enabled = enabled;
         }
+        public void Draw(PaintEventArgs e)
+        {
 
-        public Point getPosition()
-        {
-            return _position;
-        }
-        public int getX()
-        {
-            return _position._x;
-        }
-        public int getY()
-        {
-            return _position._y;
-        }
-        public uint getRadius()
-        {
-            return _radius;
-        }
-        public CCircle(CCircle Circle)
-        {
-            _position = Circle._position;
-            _radius = Circle._radius;
-        }
-    }
+            e.Graphics.FillEllipse(
+                    _color,
+                    this.getX() - this.getRadius(),
+                    this.getY() - this.getRadius(),
+                    this.getRadius() * 2,
+                    this.getRadius() * 2
+                    );
 
-    class VectorCCircle
-    {
-        private CCircle[] _shapes;
-        private uint _size;
-        private uint _k;
-        public VectorCCircle(uint size)
-        {
-            _k = 0;
-            _size = size;
-            _shapes = new CCircle[_size];
-            for(int i = 0; i < size; i++)
+            if (!_enabled)
             {
-                _shapes[i] = null;
+                return;
             }
-        }
-        public void resize(uint newSize)
-        {
-            CCircle[] _shapes1 = new CCircle[newSize];
-            uint size = _size < newSize ? _size : newSize;
-            for(int i = 0; i < size; i++)
-            {
-                _shapes1[i] = _shapes[i];
-            }
-            _shapes = _shapes1;
-            _size = newSize;
-        }
-        public CCircle this[int i]
-        {
-            set
-            {
-                if ((i < 0) || (i > _size))
-                {
+            Pen pen = new Pen(Brushes.Black, 5);
+            e.Graphics.DrawEllipse(
+                    pen,
+                    this.getX() - this.getRadius(),
+                    this.getY() - this.getRadius(),
+                    this.getRadius() * 2,
+                    this.getRadius() * 2
+                    );
 
-                }
-                else
-                {
-                    if(_shapes[i] == null)
-                    {
-                        _k++;
-                    }
-                    _shapes[i] = value;
-                }
-            }
-            get
-            {
-                if ((i < 0) || (i > _size))
-                {
-                    return null;
-                }
-                else
-                {
-                    return _shapes[i];
-                }
-            }
         }
-        public void delCCircle(uint i)
+        public bool IsSelected(MouseEventArgs e)
         {
-            if (_shapes[i] != null)
-            {
-                _k--;
-            }
-            _shapes[i] = null;
+            return ((_position.X - e.X) * (_position.X - e.X) + (_position.Y - e.Y) * (_position.Y - e.Y) <= _radius * _radius);
         }
-        public uint size()
-        {
-            return _size;
-        }
-        public uint getK()
-        {
-            return _k;
-        }
-        public VectorCCircle(VectorCCircle a)
-        {
-            _k = a._k;
-            _size = a._size;
-            for (int i = 0; i < _size; i++)
-            {
-                _shapes[i] = a._shapes[i];
-            }
-        }
-        ~VectorCCircle()
-        {
-            for(int i = 0; i < _size; i++)
-            {
-                _shapes[i] = null;
-            }
-        }
-    }
-    enum PointPositionRectangle{
-        LEFT_UPPER,
-        RIGHT_UPPER,
-        LEFT_LOWER,
-        RIGHT_LOWER
     }
 }
