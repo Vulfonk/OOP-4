@@ -69,7 +69,9 @@ namespace OOP_4
             else
             {
                 
-                for (int i = 0; i < shapes.getK(); i++)
+
+
+                for (int i = 0; i < shapes.size(); i++)
                 {
                     if(shapes[i] == null)
                     {
@@ -79,12 +81,13 @@ namespace OOP_4
                 }
 
                 CCircleViewer cCircle = new CCircleViewer(e.Location, 30, Brushes.Red, true);
+                shapes.resize(shapes.size() + 1);
+                shapes[(int)shapes.size() - 1] = cCircle;
 
-                if (shapes.getK() == shapes.size())
-                {
-                    shapes.resize(shapes.getK() + 1);
-                }
-                shapes[(int)shapes.getK()] = cCircle;
+                /*                if (shapes.getK() == shapes.size())
+                                {
+                                    shapes.resize(shapes.getK() + 1);
+                                }*/
             }
             pictureBox.Invalidate();
         }
@@ -116,6 +119,7 @@ namespace OOP_4
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             ctrl_key = e.Control;
+
             if(e.KeyCode == Keys.Delete)
             {
                 for(int i = 0; i < shapes.size(); i++)
