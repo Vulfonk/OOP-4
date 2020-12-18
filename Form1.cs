@@ -42,17 +42,18 @@ namespace OOP_4
                 {
                     if (shapes[i] == null)
                         continue;
-
+                    
                     if (ctrl_key)
                     {
-                        if (shapes[i].IsSelected(e))
-                        {
-                            shapes[i]._enabled = !shapes[i]._enabled;
-                            break;
+                            if (shapes[i].IsSelected(e))
+                            {
+                                shapes[i]._enabled = !shapes[i]._enabled;
+                                break;
+                            }
                         }
-                    }
                     else
                     {
+                        //flag &= !(shapes[i]._enabled = shapes[i].IsSelected(e) && flag);
                         if (shapes[i].IsSelected(e) && flag)
                         {
                             shapes[i]._enabled = true;
@@ -63,21 +64,16 @@ namespace OOP_4
                             shapes[i]._enabled = false;
                         }
                     }
-
                 }
             }
             else
             {
-                
-
-
                 for (int i = 0; i < shapes.size(); i++)
                 {
-                    if(shapes[i] == null)
+                    if (shapes[i] != null)
                     {
-                        continue;
+                        shapes[i]._enabled = false;
                     }
-                    shapes[i]._enabled = false;
                 }
 
                 CCircleViewer cCircle = new CCircleViewer(e.Location, 30, Brushes.Red, true);
@@ -109,9 +105,10 @@ namespace OOP_4
         {
             for (int i = 0; i < shapes.size(); i++)
             {
-                if (shapes[i] == null)
-                    continue;
-                shapes[i].Draw(e);
+                if (shapes[i] != null)
+                {
+                    shapes[i].Draw(e);
+                }
             }
 
         }
@@ -124,11 +121,11 @@ namespace OOP_4
             {
                 for(int i = 0; i < shapes.size(); i++)
                 {
-                    if(shapes[i] == null)
+                    /*if(shapes[i] == null)
                     {
                         continue;
-                    }
-                    if (shapes[i]._enabled)
+                    }*/
+                    if (shapes[i] != null && shapes[i]._enabled)
                     {
                         shapes.delCShape((uint)i);
                     }
