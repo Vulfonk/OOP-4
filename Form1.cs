@@ -30,6 +30,7 @@ namespace OOP_4
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
+
             if (!(e.Button == MouseButtons.Left))
             {
                 return;
@@ -41,6 +42,7 @@ namespace OOP_4
                 {
                     if (shapes[i] == null)
                         continue;
+
                     if (ctrl_key)
                     {
                         if (shapes[i].IsSelected(e))
@@ -66,6 +68,7 @@ namespace OOP_4
             }
             else
             {
+                
                 for (int i = 0; i < shapes.getK(); i++)
                 {
                     if(shapes[i] == null)
@@ -91,6 +94,10 @@ namespace OOP_4
             dataGridViewShapes.Rows.Clear();
             for (int i = 0; i < shapes.size(); i++)
             {
+                if(shapes[i] == null)
+                {
+                    continue;
+                }
                 dataGridViewShapes.Rows.Add(shapes[i].getX(), shapes[i].getY());
             }
         }
@@ -176,6 +183,7 @@ namespace OOP_4
         public bool IsSelected(MouseEventArgs e)
         {
             return ((_position.X - e.X) * (_position.X - e.X) + (_position.Y - e.Y) * (_position.Y - e.Y) <= _radius * _radius);
+        
         }
     }
 }
