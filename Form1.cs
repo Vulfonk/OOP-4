@@ -15,9 +15,15 @@ namespace OOP_4
     {
 
         bool ctrl_key = false;
-
-        VectorCCircle<ShapeViewer> shapes = new VectorCCircle<ShapeViewer>(1);
-        Dictionary<Keys,(int, int) > keyValuePairs = new Dictionary<Keys, (int, int)>();
+        const int displacement = 10;
+        VectorCCircle<ShapeViewer> shapes = new VectorCCircle<ShapeViewer>();
+        Dictionary<Keys, (int dx, int dy)> keyValuePairs = new Dictionary<Keys, (int, int)>
+        {
+            [Keys.D] = (displacement, 0),
+            [Keys.A] = (-displacement, 0),
+            [Keys.S] = (0, displacement),
+            [Keys.W] = (0, -displacement),
+        };
 
         public Form1()
         {
@@ -26,16 +32,9 @@ namespace OOP_4
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            keyValuePairs.Add(Keys.D, (10, 0));
-            keyValuePairs.Add(Keys.A, (-10, 0));
-            keyValuePairs.Add(Keys.S, (0, 10));
-            keyValuePairs.Add(Keys.W, (0, -10));
 
-           /* Circle a = new Circle(new Point(2,3), 23);
-            MessageBox.Show(a.ToString());
-                     */
         }
-        
+
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
@@ -51,15 +50,15 @@ namespace OOP_4
                 {
                     if (shapes[i] == null)
                         continue;
-                    
+
                     if (ctrl_key)
                     {
-                            if (shapes[i].IsHitIn(e))
-                            {
-                                shapes[i]._enabled = !shapes[i]._enabled;
-                                break;
-                            }
+                        if (shapes[i].IsHitIn(e))
+                        {
+                            shapes[i]._enabled = !shapes[i]._enabled;
+                            break;
                         }
+                    }
                     else
                     {
                         //flag &= !(shapes[i]._enabled = shapes[i].IsHitIn(e) && flag);
@@ -84,10 +83,23 @@ namespace OOP_4
                         shapes[i]._enabled = false;
                     }
                 }
-                
-                CircleViewer cCircle = new CircleViewer(e.Location, 30, Brushes.Red, true);
+
+                ShapeViewer shape = null;
+                if ((string)Shape_comboBox.SelectedItem == "Круг")
+                {
+                    shape = new CircleViewer(e.Location, 30, Brushes.Red, true);
+                }
+                else if ((string)Shape_comboBox.SelectedItem == "Квадрат")
+                {
+                    shape = new SquadeViewer(e.Location, 30, Brushes.Red, true);
+                }
                 shapes.resize(shapes.size() + 1);
-                shapes[(int)shapes.size() - 1] = cCircle;
+                if (shape != null)
+                {
+                    shapes[(int)shapes.size() - 1] = shape;
+                }
+
+
             }
             pictureBox.Invalidate();
         }
@@ -115,8 +127,8 @@ namespace OOP_4
         {
             ctrl_key = e.Control;
             Keys key = e.KeyCode;
-            
-            if (keyValuePairs.ContainsKey(key))
+
+            if (keyValuePairs.TryGetValue(key, out(int dx, int dy) displacement))
             {
                 for (int i = 0; i < shapes.size(); i++)
                 {
@@ -124,21 +136,18 @@ namespace OOP_4
                     if (shapes[i] != null && shapes[i]._enabled)
                     {
                         shapes[i].MoveOn(
-                            keyValuePairs[key].Item1,
-                            keyValuePairs[key].Item2,
-                            pictureBox.Location.X + pictureBox.Width,
-                            pictureBox.Location.X,
-                            pictureBox.Location.Y - pictureBox.Height,
-                            pictureBox.Location.Y);
+                            displacement.dx, displacement.dy,
+                            pictureBox.Width,
+                            0,
+                            pictureBox.Height,
+                            0);
                     }
                 }
             }
 
-            //MessageBox.Show("");
-
             if (key == Keys.Delete)
             {
-                for(int i = 0; i < shapes.size(); i++)
+                for (int i = 0; i < shapes.size(); i++)
                 {
                     if (shapes[i] != null && shapes[i]._enabled)
                     {
@@ -162,12 +171,17 @@ namespace OOP_4
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
+
         }
 
         private void Shape_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            shapes = new VectorCCircle<ShapeViewer>();
+            pictureBox.Invalidate();
         }
     }
 
@@ -177,7 +191,7 @@ namespace OOP_4
         void Draw(PaintEventArgs e);
         bool IsHitIn(MouseEventArgs e);
     }
-    
+
     interface Movable
     {
         void MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY);
@@ -188,13 +202,24 @@ namespace OOP_4
     {
         protected Brush _color;
         public bool _enabled;
+        public ShapeViewer(Brush color, bool enabled)
+        {
+            setColor(color);
+            _enabled = enabled;
+        }
+        public ShapeViewer(Point position, Brush color, bool enabled)
+        {
+            _position = position;
+            _enabled = enabled;
+            setColor(color);
+        }
         public void MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
         {
-           // if (InWorkspace(maxX, minX, maxY, minY))
-            //{
+            if (InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy))
+            {
                 _position.X += dx;
                 _position.Y += dy;
-            //}
+            }
         }
         public void setColor(Brush color)
         {
@@ -205,10 +230,10 @@ namespace OOP_4
         public bool InWorkspace(int maxX, int minX, int maxY, int minY)
         {
             return
-                _position.X < maxX &&
-                _position.X > minX &&
-                _position.Y < maxY &&
-                _position.Y > minY;
+                (_position.X < maxX) &&
+                (_position.X > minX) &&
+                (_position.Y < maxY) &&
+                (_position.Y > minY);
 
         }
 
@@ -217,45 +242,81 @@ namespace OOP_4
     class CircleViewer : ShapeViewer
     {
         private Circle circle;
-        public CircleViewer(Brush color, bool enabled)
-        {
-            setColor(color);
-            _enabled = enabled;
-        }
-        public CircleViewer(Point position, uint radius, Brush color, bool enabled)
+        public CircleViewer(Brush color, bool enabled) : base(color, enabled) { }
+        public CircleViewer(Point position, uint radius, Brush color, bool enabled):base(position, color, enabled)
         {
             circle = new Circle(position, radius);
-            _position = position;
-            _enabled = enabled;
-            setColor(color);
         }
         override public void Draw(PaintEventArgs e)
         {
-            e.Graphics.FillEllipse(
-                    _color,
-                    this._position.X - this.circle.getRadius(),
+            var args = ( this._position.X - this.circle.getRadius(),
                     this._position.Y - this.circle.getRadius(),
                     this.circle.getRadius() * 2,
-                    this.circle.getRadius() * 2
+                    this.circle.getRadius() * 2);
+            e.Graphics.FillEllipse(_color, args);
+
+            if (!_enabled)
+            { 
+                return;
+            }
+            e.Graphics.DrawEllipse(new Pen(Brushes.Black, 3),args);
+        }
+        override public bool IsHitIn(MouseEventArgs e)
+        {
+            return
+                ((_position.X - e.X) * (_position.X - e.X)
+                + (_position.Y - e.Y) * (_position.Y - e.Y)
+                <=
+                circle.getRadius() * circle.getRadius());
+        }
+    }
+    public static class GraphicsExtension
+    {
+        public static void DrawEllipse(this Graphics gr, Pen pen, (float x, float y, float width, float height) args)
+        {
+            gr.DrawEllipse(pen, args.Item1, args.Item2, args.Item3, args.Item4);
+        }
+        public static void FillEllipse(this Graphics gr, Brush color, (float x, float y, float width, float height) args)
+        {
+            gr.FillEllipse(color, args.Item1, args.Item2, args.Item3, args.Item4);
+        }   
+    }
+    
+    class SquadeViewer : ShapeViewer
+    {
+        private Squade squade;
+        public SquadeViewer(Brush color, bool enabled) : base(color, enabled) { }
+        public SquadeViewer(Point position, uint side, Brush color, bool enabled):base(position, color, enabled)
+        {
+            squade = new Squade(position, side);
+        }
+        override public void Draw(PaintEventArgs e)
+        {
+            e.Graphics.FillRectangle(
+                    _color,
+                    this._position.X,
+                    this._position.Y,
+                    squade._side,
+                    squade._side
                     );
 
             if (!_enabled)
             {
                 return;
             }
-            Pen pen = new Pen(Brushes.Black, 5);
+            Pen pen = new Pen(Brushes.Black, 3);
             e.Graphics.DrawEllipse(
                     pen,
-                    this._position.X - this.circle.getRadius(),
-                    this._position.Y - this.circle.getRadius(),
-                    this.circle.getRadius() * 2,
-                    this.circle.getRadius() * 2
+                    this._position.X,
+                    this._position.Y,
+                    squade._side,
+                    squade._side
                     );
         }
-        override public bool IsHitIn(MouseEventArgs e)
+        public override bool IsHitIn(MouseEventArgs e)
         {
-            return ((_position.X - e.X) * (_position.X - e.X) + (_position.Y - e.Y) * (_position.Y - e.Y) <= circle.getRadius() * circle.getRadius());
-        
+            return Math.Abs(_position.X - e.X) < squade._side && Math.Abs(_position.Y - e.Y) < squade._side;
         }
+
     }
 }

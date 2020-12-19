@@ -35,6 +35,7 @@
             this.Color_label = new System.Windows.Forms.Label();
             this.Color_comboBox = new System.Windows.Forms.ComboBox();
             this.Shape_label = new System.Windows.Forms.Label();
+            this.Clear_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.Menu_panel.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +63,13 @@
             // 
             // Shape_comboBox
             // 
+            this.Shape_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Shape_comboBox.FormattingEnabled = true;
+            this.Shape_comboBox.Items.AddRange(new object[] {
+            "Круг",
+            "Квадрат",
+            "Треугольник",
+            "Отрезок"});
             this.Shape_comboBox.Location = new System.Drawing.Point(115, 13);
             this.Shape_comboBox.Name = "Shape_comboBox";
             this.Shape_comboBox.Size = new System.Drawing.Size(169, 21);
@@ -71,6 +78,7 @@
             // 
             // Menu_panel
             // 
+            this.Menu_panel.Controls.Add(this.Clear_button);
             this.Menu_panel.Controls.Add(this.Color_label);
             this.Menu_panel.Controls.Add(this.Color_comboBox);
             this.Menu_panel.Controls.Add(this.Shape_label);
@@ -92,6 +100,7 @@
             // 
             // Color_comboBox
             // 
+            this.Color_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Color_comboBox.FormattingEnabled = true;
             this.Color_comboBox.Location = new System.Drawing.Point(115, 59);
             this.Color_comboBox.Name = "Color_comboBox";
@@ -107,6 +116,16 @@
             this.Shape_label.Size = new System.Drawing.Size(58, 18);
             this.Shape_label.TabIndex = 5;
             this.Shape_label.Text = "Фигура";
+            // 
+            // Clear_button
+            // 
+            this.Clear_button.Location = new System.Drawing.Point(3, 547);
+            this.Clear_button.Name = "Clear_button";
+            this.Clear_button.Size = new System.Drawing.Size(75, 23);
+            this.Clear_button.TabIndex = 8;
+            this.Clear_button.Text = "Очистить";
+            this.Clear_button.UseVisualStyleBackColor = true;
+            this.Clear_button.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -140,6 +159,7 @@
         private System.Windows.Forms.Label Color_label;
         private System.Windows.Forms.ComboBox Color_comboBox;
         private System.Windows.Forms.Label Shape_label;
+        private System.Windows.Forms.Button Clear_button;
     }
 }
 
