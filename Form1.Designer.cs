@@ -47,7 +47,6 @@
             this.pictureBox.Size = new System.Drawing.Size(870, 573);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
-            this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
             // 
@@ -74,7 +73,6 @@
             this.Shape_comboBox.Name = "Shape_comboBox";
             this.Shape_comboBox.Size = new System.Drawing.Size(169, 21);
             this.Shape_comboBox.TabIndex = 4;
-            this.Shape_comboBox.SelectedIndexChanged += new System.EventHandler(this.Shape_comboBox_SelectedIndexChanged);
             // 
             // Menu_panel
             // 
@@ -125,7 +123,7 @@
             this.Clear_button.TabIndex = 8;
             this.Clear_button.Text = "Очистить";
             this.Clear_button.UseVisualStyleBackColor = true;
-            this.Clear_button.Click += new System.EventHandler(this.button1_Click);
+            this.Clear_button.Click += new System.EventHandler(this.clear_button_Click);
             // 
             // Form1
             // 
@@ -138,9 +136,7 @@
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.Menu_panel.ResumeLayout(false);
