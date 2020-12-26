@@ -9,9 +9,18 @@ namespace OOP_4
 {
     class Circle :  Shape
     {
-        public uint _radius;
+        protected uint _radius;
         
         public Circle(Point position, uint radius):base(position)
+        {
+            _radius = radius;
+        }
+
+        public uint getRadius()
+        {
+            return _radius;
+        }
+        public void setRadius(uint radius)
         {
             _radius = radius;
         }

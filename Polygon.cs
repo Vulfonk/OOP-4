@@ -10,7 +10,10 @@ namespace OOP_4
     class Polygon : Shape
     {
         public uint _side;
-
+      /*  virtual public uint getSide()
+        {
+            return _side;
+        }*/
         public Polygon(Point position, uint side):base(position)
         {
             _side = side;
