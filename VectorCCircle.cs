@@ -8,9 +8,9 @@ namespace OOP_4
 {
     class VectorCCircle<Shape>
     {
-        private Shape[] _shapes;    
-        private uint _size;
-        private uint _k;
+        protected Shape[] _shapes;
+        protected uint _size;
+        protected uint _k;
 
         public VectorCCircle()
         {
