@@ -1,0 +1,10 @@
+C:\Users\1\source\repos\OOP 4\OOP 4\bin\Debug\OOP 4.exe.config
+C:\Users\1\source\repos\OOP 4\OOP 4\bin\Debug\OOP 4.exe
+C:\Users\1\source\repos\OOP 4\OOP 4\bin\Debug\OOP 4.pdb
+C:\Users\1\source\repos\OOP 4\OOP 4\obj\Debug\OOP 4.csprojAssemblyReference.cache
+C:\Users\1\source\repos\OOP 4\OOP 4\obj\Debug\OOP_4.Form1.resources
+C:\Users\1\source\repos\OOP 4\OOP 4\obj\Debug\OOP_4.Properties.Resources.resources
+C:\Users\1\source\repos\OOP 4\OOP 4\obj\Debug\OOP 4.csproj.GenerateResource.cache
+C:\Users\1\source\repos\OOP 4\OOP 4\obj\Debug\OOP 4.csproj.CoreCompileInputs.cache
+C:\Users\1\source\repos\OOP 4\OOP 4\obj\Debug\OOP 4.exe
+C:\Users\1\source\repos\OOP 4\OOP 4\obj\Debug\OOP 4.pdb

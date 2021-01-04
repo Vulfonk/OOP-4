@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace OOP_4
 {
-    class Shape
+    abstract class Shape
     {
         protected Point _position;
         public Shape() { }

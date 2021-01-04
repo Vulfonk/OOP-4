@@ -21,26 +21,19 @@ namespace OOP_4
         }
         override public void Draw(PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(
-                    _color,
-                    this._position.X - squade._side / 2,
-                    this._position.Y - squade._side / 2,
-                    squade._side,
-                    squade._side
-                    );
+            Rectangle rect = new Rectangle(
+                    (int)(this._position.X - squade._side / 2),
+                    (int)(this._position.Y - squade._side / 2),
+                    (int)squade._side,
+                    (int)squade._side);
+
+            e.Graphics.FillRectangle(_color,rect);
 
             if (!_enabled)
             {
                 return;
             }
-            Pen pen = new Pen(Brushes.Black, 3);
-            e.Graphics.DrawRectangle(
-                     new Pen(Brushes.Black, 3),
-                     this._position.X - squade._side / 2,
-                     this._position.Y - squade._side / 2,
-                     squade._side,
-                     squade._side
-                     );
+            e.Graphics.DrawRectangle(new Pen(Brushes.Black, 3),rect);
         }
         public override bool IsHitIn(MouseEventArgs e)
         {
@@ -49,7 +42,10 @@ namespace OOP_4
 
         override public void resizeOn(int dsize)
         {
-            squade._side = (uint)(squade._side + dsize);
+            if(squade._side + dsize > 0)
+            {
+                squade._side = (uint)(squade._side + dsize);
+            }
         }
         override public void resize(uint new_size)
         {

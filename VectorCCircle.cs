@@ -11,11 +11,12 @@ namespace OOP_4
         protected Shape[] _shapes;
         protected uint _size;
         protected uint _k;
-
+       
         public VectorCCircle()
         {
 
         }
+        
         public VectorCCircle(uint size)
         {
             _k = 0;
@@ -24,7 +25,7 @@ namespace OOP_4
             for (int i = 0; i < size; i++)
             {
                 _shapes[i] = default(Shape);
-            
+
             }
         }
         public void resize(uint newSize)

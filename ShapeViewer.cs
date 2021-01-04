@@ -12,7 +12,7 @@ namespace OOP_4
 {
     abstract class ShapeViewer : Shape, Drawable, Movable, Resizeable
     {
-        protected Brush _color;
+        public Brush _color;
         public bool _enabled;
         public ShapeViewer(Brush color, bool enabled)
         {

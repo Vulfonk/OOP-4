@@ -21,19 +21,19 @@ namespace OOP_4
         }
         override public void Draw(PaintEventArgs e)
         {
-            var args = (
-                    this._position.X - this.circle._radius,
-                    this._position.Y - this.circle._radius,
-                    this.circle._radius * 2,
-                    this.circle._radius * 2);
+            Rectangle rect = new Rectangle(
+                    (int)(this._position.X - this.circle._radius),
+                    (int)(this._position.Y - this.circle._radius),
+                    (int)(this.circle._radius * 2),
+                    (int)(this.circle._radius * 2));
 
-            e.Graphics.FillEllipse(_color, args);
+            e.Graphics.FillEllipse(_color, rect);
 
             if (!_enabled)
             {
                 return;
             }
-            e.Graphics.DrawEllipse(new Pen(Brushes.Black, 3), args);
+            e.Graphics.DrawEllipse(new Pen(Brushes.Black, 3), rect);
         }
         override public bool IsHitIn(MouseEventArgs e)
         {
@@ -45,7 +45,10 @@ namespace OOP_4
         }
         override public void resizeOn(int dsize)
         {
-            circle._radius = (uint)(circle._radius + dsize);
+            if (circle._radius + dsize > 0)
+            {
+                circle._radius = (uint)(circle._radius + dsize);
+            }
         }
         override public void resize(uint new_size)
         {

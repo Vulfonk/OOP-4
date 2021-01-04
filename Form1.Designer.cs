@@ -32,16 +32,19 @@
             this.SelectionMode_checkBox = new System.Windows.Forms.CheckBox();
             this.Shape_comboBox = new System.Windows.Forms.ComboBox();
             this.Menu_panel = new System.Windows.Forms.Panel();
+            this.Clear_button = new System.Windows.Forms.Button();
             this.Color_label = new System.Windows.Forms.Label();
             this.Color_comboBox = new System.Windows.Forms.ComboBox();
             this.Shape_label = new System.Windows.Forms.Label();
-            this.Clear_button = new System.Windows.Forms.Button();
+            this.reverse_selected_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.Menu_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox
             // 
+            this.pictureBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox.Location = new System.Drawing.Point(12, 12);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(870, 573);
@@ -76,6 +79,7 @@
             // 
             // Menu_panel
             // 
+            this.Menu_panel.Controls.Add(this.reverse_selected_button);
             this.Menu_panel.Controls.Add(this.Clear_button);
             this.Menu_panel.Controls.Add(this.Color_label);
             this.Menu_panel.Controls.Add(this.Color_comboBox);
@@ -85,6 +89,16 @@
             this.Menu_panel.Name = "Menu_panel";
             this.Menu_panel.Size = new System.Drawing.Size(287, 573);
             this.Menu_panel.TabIndex = 5;
+            // 
+            // Clear_button
+            // 
+            this.Clear_button.Location = new System.Drawing.Point(3, 547);
+            this.Clear_button.Name = "Clear_button";
+            this.Clear_button.Size = new System.Drawing.Size(75, 23);
+            this.Clear_button.TabIndex = 8;
+            this.Clear_button.Text = "Очистить";
+            this.Clear_button.UseVisualStyleBackColor = true;
+            this.Clear_button.Click += new System.EventHandler(this.clear_button_Click);
             // 
             // Color_label
             // 
@@ -104,6 +118,7 @@
             this.Color_comboBox.Name = "Color_comboBox";
             this.Color_comboBox.Size = new System.Drawing.Size(169, 21);
             this.Color_comboBox.TabIndex = 6;
+            this.Color_comboBox.SelectedIndexChanged += new System.EventHandler(this.Color_comboBox_SelectedIndexChanged);
             // 
             // Shape_label
             // 
@@ -115,15 +130,15 @@
             this.Shape_label.TabIndex = 5;
             this.Shape_label.Text = "Фигура";
             // 
-            // Clear_button
+            // reverse_selected_button
             // 
-            this.Clear_button.Location = new System.Drawing.Point(3, 547);
-            this.Clear_button.Name = "Clear_button";
-            this.Clear_button.Size = new System.Drawing.Size(75, 23);
-            this.Clear_button.TabIndex = 8;
-            this.Clear_button.Text = "Очистить";
-            this.Clear_button.UseVisualStyleBackColor = true;
-            this.Clear_button.Click += new System.EventHandler(this.clear_button_Click);
+            this.reverse_selected_button.Location = new System.Drawing.Point(127, 518);
+            this.reverse_selected_button.Name = "reverse_selected_button";
+            this.reverse_selected_button.Size = new System.Drawing.Size(157, 52);
+            this.reverse_selected_button.TabIndex = 9;
+            this.reverse_selected_button.Text = "Выделить не выделенное не выделив выделенное";
+            this.reverse_selected_button.UseVisualStyleBackColor = true;
+            this.reverse_selected_button.Click += new System.EventHandler(this.reverse_selected_button_Click);
             // 
             // Form1
             // 
@@ -136,6 +151,7 @@
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -156,6 +172,7 @@
         private System.Windows.Forms.ComboBox Color_comboBox;
         private System.Windows.Forms.Label Shape_label;
         private System.Windows.Forms.Button Clear_button;
+        private System.Windows.Forms.Button reverse_selected_button;
     }
 }
 
