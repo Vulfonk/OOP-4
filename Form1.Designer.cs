@@ -32,11 +32,11 @@
             this.SelectionMode_checkBox = new System.Windows.Forms.CheckBox();
             this.Shape_comboBox = new System.Windows.Forms.ComboBox();
             this.Menu_panel = new System.Windows.Forms.Panel();
+            this.reverse_selected_button = new System.Windows.Forms.Button();
             this.Clear_button = new System.Windows.Forms.Button();
             this.Color_label = new System.Windows.Forms.Label();
             this.Color_comboBox = new System.Windows.Forms.ComboBox();
             this.Shape_label = new System.Windows.Forms.Label();
-            this.reverse_selected_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.Menu_panel.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +52,8 @@
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
+            this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
+            this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             // 
             // SelectionMode_checkBox
             // 
@@ -89,6 +91,16 @@
             this.Menu_panel.Name = "Menu_panel";
             this.Menu_panel.Size = new System.Drawing.Size(287, 573);
             this.Menu_panel.TabIndex = 5;
+            // 
+            // reverse_selected_button
+            // 
+            this.reverse_selected_button.Location = new System.Drawing.Point(127, 518);
+            this.reverse_selected_button.Name = "reverse_selected_button";
+            this.reverse_selected_button.Size = new System.Drawing.Size(157, 52);
+            this.reverse_selected_button.TabIndex = 9;
+            this.reverse_selected_button.Text = "Выделить не выделенное не выделив выделенное";
+            this.reverse_selected_button.UseVisualStyleBackColor = true;
+            this.reverse_selected_button.Click += new System.EventHandler(this.reverse_selected_button_Click);
             // 
             // Clear_button
             // 
@@ -129,16 +141,6 @@
             this.Shape_label.Size = new System.Drawing.Size(58, 18);
             this.Shape_label.TabIndex = 5;
             this.Shape_label.Text = "Фигура";
-            // 
-            // reverse_selected_button
-            // 
-            this.reverse_selected_button.Location = new System.Drawing.Point(127, 518);
-            this.reverse_selected_button.Name = "reverse_selected_button";
-            this.reverse_selected_button.Size = new System.Drawing.Size(157, 52);
-            this.reverse_selected_button.TabIndex = 9;
-            this.reverse_selected_button.Text = "Выделить не выделенное не выделив выделенное";
-            this.reverse_selected_button.UseVisualStyleBackColor = true;
-            this.reverse_selected_button.Click += new System.EventHandler(this.reverse_selected_button_Click);
             // 
             // Form1
             // 

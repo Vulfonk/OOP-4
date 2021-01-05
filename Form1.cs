@@ -21,6 +21,9 @@ namespace OOP_4
         delegate void PressKeyDelegate2(int d);
         delegate void constructor();
 
+        Point start_point;
+        Point final_point;
+
         Dictionary<Keys, PressKeyDelegate> KeyDelegate_Dictionary = new Dictionary<Keys, PressKeyDelegate>
         {
             [Keys.Add] = add,
@@ -163,6 +166,10 @@ namespace OOP_4
                     {
                         shape = new TriangleViewer(e.Location, SIZE, color, true);
                     }
+                    else if ((string)Shape_comboBox.SelectedItem == "Отрезок")
+                    {
+                        shape = new LineViewer(e.Location, start_point, color, true);
+                    }
 
                 shapes.resize(shapes.size() + 1);
 
@@ -173,7 +180,6 @@ namespace OOP_4
             }
             pictureBox.Invalidate();
         }
-
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
@@ -259,6 +265,17 @@ namespace OOP_4
                     shapes[i]._enabled = !shapes[i]._enabled;
             }
             pictureBox.Invalidate();
+        }
+
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            start_point = new Point(e.Location.X, e.Location.Y);
+            
+        }
+
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            final_point = new Point(e.Location.X, e.Location.Y);
         }
     }
     class VectorShapeViewer<Shape> : VectorCCircle<Shape>

@@ -98,7 +98,6 @@ namespace OOP_4
         {
             for (int i = 0; i < _size; i++)
             {
-
                 _shapes[i] = default(Shape);
             }
         }

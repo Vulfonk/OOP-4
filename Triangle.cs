@@ -10,5 +10,6 @@ namespace OOP_4
     class Triangle : Polygon
     {
         public Triangle(Point position, uint side) : base(position, side){ }
+
     }
 }

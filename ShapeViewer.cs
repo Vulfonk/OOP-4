@@ -25,7 +25,7 @@ namespace OOP_4
             _enabled = enabled;
             setColor(color);
         }
-        public void MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
+        virtual public void MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
         {
             if (InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy))
             {
@@ -39,7 +39,7 @@ namespace OOP_4
         }
         abstract public void Draw(PaintEventArgs e);
         abstract public bool IsHitIn(MouseEventArgs e);
-        public bool InWorkspace(int maxX, int minX, int maxY, int minY)
+        virtual public bool InWorkspace(int maxX, int minX, int maxY, int minY)
         {
             return
                 (_position.X < maxX) &&
