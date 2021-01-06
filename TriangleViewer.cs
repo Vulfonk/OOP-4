@@ -46,6 +46,36 @@ namespace OOP_4
             */
 
         }
+
+        public override bool MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
+        {
+            bool moveable = InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy);
+            if (!moveable)
+            {
+                return false;
+            }
+            else
+            {
+                _position.X += dx;
+                _position.Y += dy;
+                return true;
+            }
+        }
+        public override bool InWorkspace(int maxX, int minX, int maxY, int minY)
+        {
+            return
+                PointIn(maxX, minX, maxY, minY, vertices[0]) &&
+                PointIn(maxX, minX, maxY, minY, vertices[1]) &&
+                PointIn(maxX, minX, maxY, minY, vertices[2]);
+        }
+        private bool PointIn(int maxX, int minX, int maxY, int minY, Point point)
+        {
+            return
+                (point.X < maxX) &&
+                (point.X > minX) &&
+                (point.Y < maxY) &&
+                (point.Y > minY);
+        }
         private double distance(Point a, Point b)
         {
             return Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));

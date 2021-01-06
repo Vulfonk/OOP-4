@@ -25,13 +25,20 @@ namespace OOP_4
             _enabled = enabled;
             setColor(color);
         }
-        virtual public void MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
+        virtual public bool MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
         {
-            if (InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy))
+            bool moveable = InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy);
+            if (!moveable)
+            {
+                return false;
+            }
+            else
             {
                 _position.X += dx;
                 _position.Y += dy;
+                return true;
             }
+            
         }
         public void setColor(Brush color)
         {

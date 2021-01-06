@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace OOP_4
 {
-    public class DoublyLinkedList<T> : IEnumerable<T>  // двусвязный список
+    public class ShapeList<T> : IEnumerable<T> 
     {
-        DoublyNode head; // головной/первый элемент
-        DoublyNode tail; // последний/хвостовой элемент
-        int count;  // количество элементов в списке
+        DoublyNode head; 
+        DoublyNode tail; 
+        int count;  
         private class DoublyNode
         {
             public DoublyNode(T data)
@@ -22,7 +22,7 @@ namespace OOP_4
             public DoublyNode Previous { get; set; }
             public DoublyNode Next { get; set; }
         }
-        // добавление элемента
+        
         public void Add(T data)
         {
             DoublyNode node = new DoublyNode(data);
@@ -49,12 +49,12 @@ namespace OOP_4
                 temp.Previous = node;
             count++;
         }
-        // удаление
+        
         public bool Remove(T data)
         {
             DoublyNode current = head;
 
-            // поиск удаляемого узла
+            
             while (current != null)
             {
                 if (current.Data.Equals(data))
@@ -65,25 +65,25 @@ namespace OOP_4
             }
             if (current != null)
             {
-                // если узел не последний
+                
                 if (current.Next != null)
                 {
                     current.Next.Previous = current.Previous;
                 }
                 else
                 {
-                    // если последний, переустанавливаем tail
+                    
                     tail = current.Previous;
                 }
 
-                // если узел не первый
+                
                 if (current.Previous != null)
                 {
                     current.Previous.Next = current.Next;
                 }
                 else
                 {
-                    // если первый, переустанавливаем head
+                    
                     head = current.Next;
                 }
                 count--;

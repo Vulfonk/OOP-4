@@ -26,25 +26,37 @@ namespace OOP_4
             e.Graphics.DrawLine(new Pen(_color, width),line._B, _position);
             
         }
-        public override void MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
+        public override bool MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
         {
-            if (InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy) && 
-                base.InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy))
+            bool moveable = InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy);
+            if (!moveable)
             {
-                _position.X += dx;
-                _position.Y += dy;
+                return false;
+            }
+            else
+            {
                 line._B.X += dx;
                 line._B.Y += dy;
+                _position.X += dx;
+                _position.Y += dy;
+                return true;
             }
         }
         public override bool InWorkspace(int maxX, int minX, int maxY, int minY)
         {
             return
-                (line._B.X < maxX) &&
-                (line._B.X > minX) &&
-                (line._B.Y < maxY) &&
-                (line._B.Y > minY);
+                PointIn(maxX, minX, maxY, minY, _position) &&
+                PointIn(maxX, minX, maxY, minY, line._B);
         }
+        private bool PointIn(int maxX, int minX, int maxY, int minY, Point point)
+        {
+            return
+                (point.X < maxX) &&
+                (point.X > minX) &&
+                (point.Y < maxY) &&
+                (point.Y > minY);
+        }
+
         public override bool IsHitIn(MouseEventArgs e)
         {
             Point A = line._B;
@@ -79,11 +91,11 @@ namespace OOP_4
 
         public override void resizeOn(int dsize)
         {
-            //width += dsize;
-            line._B.X += dsize;
+            width += dsize;
+            /*line._B.X += dsize;
             line._B.Y += dsize;
             _position.X += dsize;
-            _position.Y += dsize;
+            _position.Y += dsize;*/
         }
     }
 }

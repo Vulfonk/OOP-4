@@ -16,7 +16,7 @@ namespace OOP_4
 
         bool ctrl_key = false;
         const int SIZE = 60;
-        delegate void PressKeyDelegate(DoublyLinkedList<ShapeViewer> shapes);
+        delegate void PressKeyDelegate(ShapeList<ShapeViewer> shapes);
 
         delegate void PressKeyDelegate2(int d);
         delegate void constructor();
@@ -31,7 +31,7 @@ namespace OOP_4
             [Keys.Delete] = del
         };
 
-        static void add(DoublyLinkedList<ShapeViewer> shapes)
+        static void add(ShapeList<ShapeViewer> shapes)
         {
             foreach (var shape in shapes)
             {
@@ -40,7 +40,7 @@ namespace OOP_4
             }
 
         }
-        static void sub(DoublyLinkedList<ShapeViewer> shapes)
+        static void sub(ShapeList<ShapeViewer> shapes)
         {
             foreach (var shape in shapes)
             {
@@ -48,7 +48,7 @@ namespace OOP_4
                     shape.resizeOn(-1);
             }
         }
-        static void del(DoublyLinkedList<ShapeViewer> shapes)
+        static void del(ShapeList<ShapeViewer> shapes)
         {
 
             foreach (var shape in shapes)
@@ -57,7 +57,7 @@ namespace OOP_4
                     shapes.Remove(shape);
             }
         }
-        static void col(DoublyLinkedList<ShapeViewer> shapes)
+        static void col(ShapeList<ShapeViewer> shapes)
         {
 
         }
@@ -69,7 +69,8 @@ namespace OOP_4
             ["Зеленый"] = Brushes.Green,
             ["Синий"] = Brushes.Blue,
             ["Коричневый"] = Brushes.Brown,
-            ["Желтый"] = Brushes.Yellow
+            ["Желтый"] = Brushes.Yellow,
+            ["Черный"] = Brushes.Black
 
         };
 
@@ -82,7 +83,7 @@ namespace OOP_4
             [Keys.W] = (0, -displacement),
         };
 
-        DoublyLinkedList<ShapeViewer> shapes = new DoublyLinkedList<ShapeViewer>();
+        ShapeList<ShapeViewer> shapes = new ShapeList<ShapeViewer>();
 
         public Form1()
         {
@@ -141,7 +142,6 @@ namespace OOP_4
                     }
                 }
 
-
                 if (color_Dictionary.TryGetValue(Color_comboBox.Text, out Brush color))
                 {
                     ShapeViewer shape = null;
@@ -163,10 +163,6 @@ namespace OOP_4
                     }
                     shapes.Add(shape);
                 }
-/*                if (shape != null)
-                {
-                    shapes[(int)shapes.size() - 1] = shape;
-                }*/
             }
             pictureBox.Invalidate();
         }
@@ -198,20 +194,41 @@ namespace OOP_4
 
             if (KeysDxDy_Dictionary.TryGetValue(key, out (int dx, int dy) displacement))
             {
-                for (int i = 0; i < shapes.Count; i++)
+                bool flag = true;
+                var dx = displacement.dx;
+                var dy = displacement.dy;
+                var maxX = pictureBox.Width;
+                var maxY = pictureBox.Height;
+                var minX = 0;
+                var minY = 0;
+                foreach (var shapemove in shapes)
                 {
-                    ShapeViewer shape = shapes.ElementAt(i);
-
-                    if (shape != null && shape._enabled)
+                    if (shapemove._enabled)
                     {
-                        shape.MoveOn(
-                            displacement.dx, displacement.dy,
-                            pictureBox.Width,
-                            0,
-                            pictureBox.Height,
-                            0);
+                        flag = shapemove.InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy);
+                    }
+                    if (!flag)
+                    {
+                        break;
                     }
                 }
+                if (flag)
+                    for (int i = 0; i < shapes.Count; i++)
+                    {
+                        ShapeViewer shape = shapes.ElementAt(i);
+
+                        if (shape != null && shape._enabled)
+                        {
+                            
+                            shape.MoveOn(
+                                displacement.dx, displacement.dy,
+                                pictureBox.Width,
+                                0,
+                                pictureBox.Height,
+                                0);
+
+                        }
+                    }
             }
 
             if (KeyDelegate_Dictionary.TryGetValue(key, out PressKeyDelegate handler))
@@ -229,7 +246,7 @@ namespace OOP_4
         }
         private void clear_button_Click(object sender, EventArgs e)
         {
-            shapes = new DoublyLinkedList<ShapeViewer>();
+            shapes = new ShapeList<ShapeViewer>();
             pictureBox.Invalidate();
         }
 
@@ -297,13 +314,15 @@ namespace OOP_4
     }
     interface Movable
     {
-        void MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY);
+        bool MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY);
         bool InWorkspace(int maxX, int minX, int maxY, int minY);
     }
-    public static class GraphicsExtension
+    public static class CircleViewerExtension
     {
+
         public static void DrawEllipse(this Graphics gr, Pen pen, (float x, float y, float width, float height) args)
         {
+            
             gr.DrawEllipse(pen, args.x, args.y, args.width, args.height);
         }
         public static void FillEllipse(this Graphics gr, Brush color, (float x, float y, float width, float height) args)
