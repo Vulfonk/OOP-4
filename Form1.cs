@@ -16,7 +16,7 @@ namespace OOP_4
 
         bool ctrl_key = false;
         const int SIZE = 60;
-        delegate void PressKeyDelegate(VectorCCircle<ShapeViewer> shapes);
+        delegate void PressKeyDelegate(DoublyLinkedList<ShapeViewer> shapes);
 
         delegate void PressKeyDelegate2(int d);
         delegate void constructor();
@@ -31,45 +31,35 @@ namespace OOP_4
             [Keys.Delete] = del
         };
 
-        static void add(VectorCCircle<ShapeViewer> shapes)
+        static void add(DoublyLinkedList<ShapeViewer> shapes)
         {
-            for (int i = 0; i < shapes.size(); i++)
+            foreach (var shape in shapes)
             {
-                if (shapes[i] != null && shapes[i]._enabled)
-                {
-                    shapes[i].resizeOn(1);
-                }
+                if (shape._enabled)
+                    shape.resizeOn(1);
             }
-        }
-        static void sub(VectorCCircle<ShapeViewer> shapes)
-        {
-            for (int i = 0; i < shapes.size(); i++)
-            {
-                if (shapes[i] != null && shapes[i]._enabled)
-                {
-                    shapes[i].resizeOn(-1);
-                }
-            }
-        }
-        static void del(VectorCCircle<ShapeViewer> shapes)
-        {
-            for (int i = 0; i < shapes.size(); i++)
-            {
-                if (shapes[i] != null && shapes[i]._enabled)
-                {
-                    shapes.delCShape((uint)i);
-                }
-            }
-        }
-        static void col(VectorCCircle<ShapeViewer> shapes)
-        {
-            for (int i = 0; i < shapes.size(); i++)
-            {
-                if (shapes[i] != null)
-                {
 
-                }
+        }
+        static void sub(DoublyLinkedList<ShapeViewer> shapes)
+        {
+            foreach (var shape in shapes)
+            {
+                if (shape._enabled)
+                    shape.resizeOn(-1);
             }
+        }
+        static void del(DoublyLinkedList<ShapeViewer> shapes)
+        {
+
+            foreach (var shape in shapes)
+            {
+                if (shape._enabled)
+                    shapes.Remove(shape);
+            }
+        }
+        static void col(DoublyLinkedList<ShapeViewer> shapes)
+        {
+
         }
 
         Dictionary<String, Brush> color_Dictionary = new Dictionary<String, Brush>
@@ -92,7 +82,7 @@ namespace OOP_4
             [Keys.W] = (0, -displacement),
         };
 
-        VectorCCircle<ShapeViewer> shapes = new VectorCCircle<ShapeViewer>();
+        DoublyLinkedList<ShapeViewer> shapes = new DoublyLinkedList<ShapeViewer>();
 
         public Form1()
         {
@@ -113,50 +103,51 @@ namespace OOP_4
             if (SelectionMode_checkBox.Checked)
             {
                 bool flag = true;
-                for (int i = (int)shapes.size() - 1; i >= 0; i--)
+                for (var i = shapes.Count - 1; i >= 0; i--)
                 {
-                    if (shapes[i] == null)
-                        continue;
-
+                    ShapeViewer shape = shapes.ElementAt(i);
                     if (ctrl_key)
                     {
-                        if (shapes[i].IsHitIn(e))
+                        if (shapes.ElementAt(i).IsHitIn(e))
                         {
-                            shapes[i]._enabled = !shapes[i]._enabled;
+                            shape._enabled = !shape._enabled;
                             break;
                         }
                     }
                     else
                     {
                         //flag &= !(shapes[i]._enabled = shapes[i].IsHitIn(e) && flag);
-                        if (shapes[i].IsHitIn(e) && flag)
+                        if (shape.IsHitIn(e) && flag)
                         {
-                            shapes[i]._enabled = true;
+                            shape._enabled = true;
                             flag = false;
                         }
                         else
                         {
-                            shapes[i]._enabled = false;
+                            shape._enabled = false;
                         }
                     }
                 }
             }
             else
             {
-                for (int i = 0; i < shapes.size(); i++)
+                for (int i = 0; i < shapes.Count; i++)
                 {
-                    if (shapes[i] != null)
-                    { 
-                        shapes[i]._enabled = false;
+                    ShapeViewer shape = shapes.ElementAt(i);
+
+                    if (shape != null)
+                    {
+                        shape._enabled = false;
                     }
                 }
 
-                ShapeViewer shape = null;
 
                 if (color_Dictionary.TryGetValue(Color_comboBox.Text, out Brush color))
+                {
+                    ShapeViewer shape = null;
                     if ((string)Shape_comboBox.SelectedItem == "Круг")
                     {
-                        shape = new CircleViewer(e.Location, SIZE/2, color, true);
+                        shape = new CircleViewer(e.Location, SIZE / 2, color, true);
                     }
                     else if ((string)Shape_comboBox.SelectedItem == "Квадрат")
                     {
@@ -170,31 +161,32 @@ namespace OOP_4
                     {
                         shape = new LineViewer(e.Location, start_point, color, true);
                     }
-
-                shapes.resize(shapes.size() + 1);
-
-                if (shape != null)
+                    shapes.Add(shape);
+                }
+/*                if (shape != null)
                 {
                     shapes[(int)shapes.size() - 1] = shape;
-                }
+                }*/
             }
             pictureBox.Invalidate();
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            for (int i = 0; i < shapes.size(); i++)
+            for (int i = 0; i < shapes.Count; i++)
             {
-                if (shapes[i] != null && !shapes[i]._enabled)
+                ShapeViewer shape = shapes.ElementAt(i);
+                if (shape != null && !shape._enabled)
                 {
-                    shapes[i].Draw(e);
+                    shape.Draw(e);
                 }
             }
-            for (int i = 0; i < shapes.size(); i++)
+            for (int i = 0; i < shapes.Count; i++)
             {
-                if (shapes[i] != null && shapes[i]._enabled)
+                ShapeViewer shape = shapes.ElementAt(i);
+                if (shape != null && shape._enabled)
                 {
-                    shapes[i].Draw(e);
+                    shape.Draw(e);
                 }
             }
         }
@@ -206,12 +198,13 @@ namespace OOP_4
 
             if (KeysDxDy_Dictionary.TryGetValue(key, out (int dx, int dy) displacement))
             {
-                for (int i = 0; i < shapes.size(); i++)
+                for (int i = 0; i < shapes.Count; i++)
                 {
+                    ShapeViewer shape = shapes.ElementAt(i);
 
-                    if (shapes[i] != null && shapes[i]._enabled)
+                    if (shape != null && shape._enabled)
                     {
-                        shapes[i].MoveOn(
+                        shape.MoveOn(
                             displacement.dx, displacement.dy,
                             pictureBox.Width,
                             0,
@@ -236,17 +229,19 @@ namespace OOP_4
         }
         private void clear_button_Click(object sender, EventArgs e)
         {
-            shapes = new VectorCCircle<ShapeViewer>();
+            shapes = new DoublyLinkedList<ShapeViewer>();
             pictureBox.Invalidate();
         }
 
         private void Color_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < shapes.size(); i++)
+            for (int i = 0; i < shapes.Count; i++)
             {
-                if (shapes[i] != null && shapes[i]._enabled)
+                ShapeViewer shape = shapes.ElementAt(i);
+
+                if (shape != null && shape._enabled)
                 {
-                    shapes[i]._color = color_Dictionary[Color_comboBox.Text];
+                    shape._color = color_Dictionary[Color_comboBox.Text];
                 }
             }
             pictureBox.Invalidate();
@@ -259,10 +254,12 @@ namespace OOP_4
 
         private void reverse_selected_button_Click(object sender, EventArgs e)
         {
-            for(var i = 0; i < shapes.size(); i++)
+            for (var i = 0; i < shapes.Count; i++)
             {
-                if (shapes[i] != null)
-                    shapes[i]._enabled = !shapes[i]._enabled;
+                ShapeViewer shape = shapes.ElementAt(i);
+
+                if (shape != null)
+                    shape._enabled = !shape._enabled;
             }
             pictureBox.Invalidate();
         }
@@ -270,7 +267,7 @@ namespace OOP_4
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             start_point = new Point(e.Location.X, e.Location.Y);
-            
+
         }
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
