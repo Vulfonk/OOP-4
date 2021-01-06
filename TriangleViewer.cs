@@ -21,7 +21,7 @@ namespace OOP_4
         {
             triangle = new Triangle(position, side);
         }
-        override public void Draw(PaintEventArgs e)
+        override public void Draw(Graphics e)
         {
             var dx = (int)(0.5 * triangle._side);
             var dy = (int)(_position.Y + 2 * Math.Sqrt(3) * triangle._side / 10);
@@ -30,7 +30,7 @@ namespace OOP_4
             vertices[1] = new Point(_position.X - dx, dy);
             vertices[2] = new Point(_position.X + dx, dy);
 
-            e.Graphics.FillPolygon(_color, vertices);
+            e.FillPolygon(_color, vertices);
 
             if (!_enabled)
             {
@@ -38,8 +38,8 @@ namespace OOP_4
             }
 
             Pen pen = new Pen(Brushes.Black, 3);
-            e.Graphics.DrawLines(pen, vertices);
-            e.Graphics.DrawLine(pen, vertices[2], vertices[0]);
+            e.DrawLines(pen, vertices);
+            e.DrawLine(pen, vertices[2], vertices[0]);
             /*
             e.Graphics.DrawLine(pen, vertices[0], vertices[1]);
             e.Graphics.DrawLine(pen, vertices[1], vertices[2]);
@@ -67,14 +67,6 @@ namespace OOP_4
                 PointIn(maxX, minX, maxY, minY, vertices[0]) &&
                 PointIn(maxX, minX, maxY, minY, vertices[1]) &&
                 PointIn(maxX, minX, maxY, minY, vertices[2]);
-        }
-        private bool PointIn(int maxX, int minX, int maxY, int minY, Point point)
-        {
-            return
-                (point.X < maxX) &&
-                (point.X > minX) &&
-                (point.Y < maxY) &&
-                (point.Y > minY);
         }
         private double distance(Point a, Point b)
         {
@@ -109,14 +101,14 @@ namespace OOP_4
             double square = Math.Sqrt(proiz);
             return square;
         }
-        public override bool IsHitIn(MouseEventArgs e)
+        public override bool IsHitIn(Point e)
         {
             //double ABCSquare = square(vertices);
             double ABCSquare = square(vertices[0], vertices[1], vertices[2]);
 
-            double ABDSquare = square(e.Location, vertices[1], vertices[2]);
-            double BCDSquare = square(vertices[0], e.Location, vertices[2]);
-            double CADSquare = square(vertices[0], vertices[1], e.Location);
+            double ABDSquare = square(e, vertices[1], vertices[2]);
+            double BCDSquare = square(vertices[0], e, vertices[2]);
+            double CADSquare = square(vertices[0], vertices[1], e);
 
             return
                 ABCSquare + E >= ABDSquare + BCDSquare + CADSquare &&

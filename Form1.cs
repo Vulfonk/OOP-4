@@ -16,7 +16,7 @@ namespace OOP_4
 
         bool ctrl_key = false;
         const int SIZE = 60;
-        delegate void PressKeyDelegate(ShapeList<ShapeViewer> shapes);
+        delegate void PressKeyDelegate(ListShape<ShapeViewer> shapes);
 
         delegate void PressKeyDelegate2(int d);
         delegate void constructor();
@@ -31,7 +31,7 @@ namespace OOP_4
             [Keys.Delete] = del
         };
 
-        static void add(ShapeList<ShapeViewer> shapes)
+        static void add(ListShape<ShapeViewer> shapes)
         {
             foreach (var shape in shapes)
             {
@@ -40,7 +40,7 @@ namespace OOP_4
             }
 
         }
-        static void sub(ShapeList<ShapeViewer> shapes)
+        static void sub(ListShape<ShapeViewer> shapes)
         {
             foreach (var shape in shapes)
             {
@@ -48,7 +48,7 @@ namespace OOP_4
                     shape.resizeOn(-1);
             }
         }
-        static void del(ShapeList<ShapeViewer> shapes)
+        static void del(ListShape<ShapeViewer> shapes)
         {
 
             foreach (var shape in shapes)
@@ -57,7 +57,7 @@ namespace OOP_4
                     shapes.Remove(shape);
             }
         }
-        static void col(ShapeList<ShapeViewer> shapes)
+        static void col(ListShape<ShapeViewer> shapes)
         {
 
         }
@@ -83,7 +83,7 @@ namespace OOP_4
             [Keys.W] = (0, -displacement),
         };
 
-        ShapeList<ShapeViewer> shapes = new ShapeList<ShapeViewer>();
+        ListShape<ShapeViewer> shapes = new ListShape<ShapeViewer>();
 
         public Form1()
         {
@@ -109,7 +109,7 @@ namespace OOP_4
                     ShapeViewer shape = shapes.ElementAt(i);
                     if (ctrl_key)
                     {
-                        if (shapes.ElementAt(i).IsHitIn(e))
+                        if (shapes.ElementAt(i).IsHitIn(e.Location))
                         {
                             shape._enabled = !shape._enabled;
                             break;
@@ -118,7 +118,7 @@ namespace OOP_4
                     else
                     {
                         //flag &= !(shapes[i]._enabled = shapes[i].IsHitIn(e) && flag);
-                        if (shape.IsHitIn(e) && flag)
+                        if (shape.IsHitIn(e.Location) && flag)
                         {
                             shape._enabled = true;
                             flag = false;
@@ -174,7 +174,7 @@ namespace OOP_4
                 ShapeViewer shape = shapes.ElementAt(i);
                 if (shape != null && !shape._enabled)
                 {
-                    shape.Draw(e);
+                    shape.Draw(e.Graphics);
                 }
             }
             for (int i = 0; i < shapes.Count; i++)
@@ -182,7 +182,7 @@ namespace OOP_4
                 ShapeViewer shape = shapes.ElementAt(i);
                 if (shape != null && shape._enabled)
                 {
-                    shape.Draw(e);
+                    shape.Draw(e.Graphics);
                 }
             }
         }
@@ -246,7 +246,7 @@ namespace OOP_4
         }
         private void clear_button_Click(object sender, EventArgs e)
         {
-            shapes = new ShapeList<ShapeViewer>();
+            shapes = new ListShape<ShapeViewer>();
             pictureBox.Invalidate();
         }
 
@@ -309,8 +309,8 @@ namespace OOP_4
     interface Drawable
     {
         void setColor(Brush color);
-        void Draw(PaintEventArgs e);
-        bool IsHitIn(MouseEventArgs e);
+        void Draw(Graphics e);
+        bool IsHitIn(Point e);
     }
     interface Movable
     {

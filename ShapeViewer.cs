@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Numerics;
+
 namespace OOP_4
 {
     abstract class ShapeViewer : Shape, Drawable, Movable, Resizeable
@@ -44,16 +45,17 @@ namespace OOP_4
         {
             _color = color;
         }
-        abstract public void Draw(PaintEventArgs e);
-        abstract public bool IsHitIn(MouseEventArgs e);
-        virtual public bool InWorkspace(int maxX, int minX, int maxY, int minY)
+        protected bool PointIn(int maxX, int minX, int maxY, int minY, Point point)
         {
             return
-                (_position.X < maxX) &&
-                (_position.X > minX) &&
-                (_position.Y < maxY) &&
-                (_position.Y > minY);
+                (point.X < maxX) &&
+                (point.X > minX) &&
+                (point.Y < maxY) &&
+                (point.Y > minY);
         }
+        abstract public void Draw(Graphics e);
+        abstract public bool IsHitIn(Point e);
+        abstract public bool InWorkspace(int maxX, int minX, int maxY, int minY);
         abstract public void resizeOn(int dsize);
         abstract public void resize(uint new_size);
 

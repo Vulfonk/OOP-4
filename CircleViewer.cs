@@ -19,7 +19,7 @@ namespace OOP_4
         {
             circle = new Circle(position, radius);
         }
-        override public void Draw(PaintEventArgs e)
+        override public void Draw(Graphics e)
         {
             Rectangle rect = new Rectangle(
                     (int)(this._position.X - this.circle._radius),
@@ -27,13 +27,13 @@ namespace OOP_4
                     (int)(this.circle._radius * 2),
                     (int)(this.circle._radius * 2));
 
-            e.Graphics.FillEllipse(_color, rect);
+            e.FillEllipse(_color, rect);
 
             if (!_enabled)
             {
                 return;
             }
-            e.Graphics.DrawEllipse(new Pen(Brushes.Black, 3), rect);
+            e.DrawEllipse(new Pen(Brushes.Black, 3), rect);
         }
         public override bool MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
         {
@@ -55,15 +55,8 @@ namespace OOP_4
                 PointIn(maxX, minX, maxY, minY, new Point((int)(_position.X - circle._radius), (int)(_position.Y - circle._radius))) &&
                 PointIn(maxX, minX, maxY, minY, new Point((int)(_position.X + circle._radius), (int)(_position.Y + circle._radius)));
         }
-        private bool PointIn(int maxX, int minX, int maxY, int minY, Point point)
-        {
-            return
-                (point.X < maxX) &&
-                (point.X > minX) &&
-                (point.Y < maxY) &&
-                (point.Y > minY);
-        }
-        override public bool IsHitIn(MouseEventArgs e)
+
+        override public bool IsHitIn(Point e)
         {
             return
                 ((_position.X - e.X) * (_position.X - e.X)

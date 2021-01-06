@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOP_4
 {
-    public class ShapeList<T> : IEnumerable<T> 
+    public class ListShape<T> : IEnumerable<T> 
     {
         DoublyNode head; 
         DoublyNode tail; 

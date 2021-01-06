@@ -19,11 +19,11 @@ namespace OOP_4
         {
             line = new Line(position, B);
         }
-        public override void Draw(PaintEventArgs e)
+        public override void Draw(Graphics e)
         {
             if (_enabled)
-                e.Graphics.DrawLine(new Pen(Brushes.Black, width + 3), line._B, _position);
-            e.Graphics.DrawLine(new Pen(_color, width),line._B, _position);
+                e.DrawLine(new Pen(Brushes.Black, width + 3), line._B, _position);
+            e.DrawLine(new Pen(_color, width),line._B, _position);
             
         }
         public override bool MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
@@ -48,20 +48,11 @@ namespace OOP_4
                 PointIn(maxX, minX, maxY, minY, _position) &&
                 PointIn(maxX, minX, maxY, minY, line._B);
         }
-        private bool PointIn(int maxX, int minX, int maxY, int minY, Point point)
-        {
-            return
-                (point.X < maxX) &&
-                (point.X > minX) &&
-                (point.Y < maxY) &&
-                (point.Y > minY);
-        }
-
-        public override bool IsHitIn(MouseEventArgs e)
+        public override bool IsHitIn(Point e)
         {
             Point A = line._B;
             Point B = _position;
-            Point C = e.Location;
+            Point C = e;
             bool X = ((C.X > A.X - width) && (C.X < B.X + width)) || ((C.X < A.X + width) && (C.X > B.X - width));
             bool Y = ((C.Y > A.Y - width) && (C.Y < B.Y + width)) || ((C.Y < A.Y + width) && (C.Y > B.Y - width));
             return (distance(A, B) * width/4 > square(A, B, C)) && X && Y;
