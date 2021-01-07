@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Numerics;
+using System.IO;
 
 namespace OOP_4
 {
@@ -16,6 +17,10 @@ namespace OOP_4
         Brush _color;
         bool _enabled;
         int width = 3;
+        public LineViewer()
+        {
+
+        }
         public Brush color { get => _color; set => _color = value; }
         public bool enabled { get => _enabled; set => _enabled = value; }
 
@@ -49,10 +54,16 @@ namespace OOP_4
             bool Y = ((C.Y > A.Y - width) && (C.Y < B.Y + width)) || ((C.Y < A.Y + width) && (C.Y > B.Y - width));
             return (distance(A, B) * width/4 > square(A, B, C)) && X && Y;
         }
-        
-        public void ungroup()
+        public override void save(StreamWriter writer)
         {
-            return;
+            writer.WriteLine("Line");
+            writer.WriteLine(_color_Dictionary.KeyWithValue(_color));
+            base.save(writer);
+        }
+        public override void load(StreamReader reader)
+        {
+            _color = _color_Dictionary[reader.ReadLine()];
+            base.load(reader);
         }
     }
 }

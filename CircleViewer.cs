@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Numerics;
+using System.IO;
 
 namespace OOP_4
 {
@@ -18,6 +19,10 @@ namespace OOP_4
         public Brush color { get => _color; set => _color = value; }
         public bool enabled { get => _enabled; set => _enabled = value; }
 
+        public CircleViewer()
+        {
+            
+        }
         public CircleViewer(Point position, uint radius, Brush color, bool enabled) : base(position, radius)
         {
             _color = color;
@@ -39,9 +44,17 @@ namespace OOP_4
             }
             e.DrawEllipse(new Pen(Brushes.Black, 3), rect);
         }
-        public void ungroup()
+        public override void save(StreamWriter writer)
         {
-            return;
+            writer.WriteLine("Circle");
+            writer.WriteLine(_color_Dictionary.KeyWithValue(_color));
+            base.save(writer);
+        }
+        public override void load(StreamReader reader)
+        {
+            string color = reader.ReadLine();
+            _color = _color_Dictionary[color];
+            base.load(reader);
         }
     }
 }

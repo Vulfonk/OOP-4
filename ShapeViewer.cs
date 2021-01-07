@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Numerics;
+using System.IO;
 
 namespace OOP_4
 {
@@ -15,7 +16,12 @@ namespace OOP_4
     {
         void ungroup();
     }
-    public interface ShapeViewer : Drawable, Movable, Resizeable, IGroup
+    public interface ISaveLoad
+    {
+        void save(StreamWriter writer);
+        void load(StreamReader reader);
+    }
+    public interface ShapeViewer : Drawable, Movable, Resizeable, IGroup, ISaveLoad
     {
 
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,45 @@ namespace OOP_4
     class Group : MyListShape, ShapeViewer
     {
         MyListShape shapes;
+
         public Group(MyListShape shapeViewers)
         {
             shapes = shapeViewers;
+        }
+        public Group()
+        {
+
+        }
+        public override void Add(ShapeViewer shape)
+        {
+            base.Add(shape);
+            if (shapes != null)
+            {
+                shapes.Remove(shape);
+            }
+        }
+        public override bool Remove(ShapeViewer shape)
+        {
+            if (base.Remove(shape))
+            {
+                shapes.Add(shape);
+                return true;
+            }
+            return false;
+            
+        }
+        public override void AddFirst(ShapeViewer shape)
+        {
+            base.AddFirst(shape);
+            shapes.Remove(shape);
+        }
+        public override void Clear()
+        {
+            foreach (var shape in this)
+            {
+                shapes.Add(shape);
+            }
+            base.Clear();
         }
         public Brush color
         {
@@ -96,10 +133,27 @@ namespace OOP_4
         }
         public void ungroup()
         {
-            foreach (var shape in this) 
+            this.Clear();
+        }
+
+        public void save(StreamWriter writer)
+        {
+            writer.WriteLine("Group");
+            writer.WriteLine(Count);
+            foreach (var shape in this)
             {
-                shapes.Add(shape);
-                this.Remove(shape);
+                shape.save(writer);
+            }
+        }
+
+        public void load(StreamReader reader)
+        {
+            int count = Int32.Parse(reader.ReadLine());
+            for(int i = 0; i < count; i++)
+            {
+                ShapeViewer shape = CreateShape(reader.ReadLine());
+                shape.load(reader);
+                this.Add(shape);
             }
         }
     }

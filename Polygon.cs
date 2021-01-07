@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.IO;
 
 namespace OOP_4
 {
     class Polygon : Shape
     {
         public uint _side;
+        public Polygon()
+        {
 
+        }
         public Polygon(Point position, uint side):base(position)
         {
             _side = side;
@@ -60,6 +64,16 @@ namespace OOP_4
             }
             double square = Math.Sqrt(proiz);
             return square;
+        }
+        virtual public void save(StreamWriter writer)
+        {
+            writer.WriteLine(_side);
+            base.save(writer);
+        }
+        virtual public void load(StreamReader reader)
+        {
+            _side = (uint)Int32.Parse(reader.ReadLine());            
+            base.load(reader);
         }
     }
 }

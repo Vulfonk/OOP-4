@@ -32,13 +32,13 @@
             this.SelectionMode_checkBox = new System.Windows.Forms.CheckBox();
             this.Shape_comboBox = new System.Windows.Forms.ComboBox();
             this.Menu_panel = new System.Windows.Forms.Panel();
+            this.ungrouping_button = new System.Windows.Forms.Button();
             this.grouping_button = new System.Windows.Forms.Button();
             this.reverse_selected_button = new System.Windows.Forms.Button();
             this.Clear_button = new System.Windows.Forms.Button();
             this.Color_label = new System.Windows.Forms.Label();
             this.Color_comboBox = new System.Windows.Forms.ComboBox();
             this.Shape_label = new System.Windows.Forms.Label();
-            this.ungrouping_button = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,6 +103,16 @@
             this.Menu_panel.TabIndex = 5;
             this.Menu_panel.Paint += new System.Windows.Forms.PaintEventHandler(this.Menu_panel_Paint);
             // 
+            // ungrouping_button
+            // 
+            this.ungrouping_button.Location = new System.Drawing.Point(3, 429);
+            this.ungrouping_button.Name = "ungrouping_button";
+            this.ungrouping_button.Size = new System.Drawing.Size(101, 23);
+            this.ungrouping_button.TabIndex = 11;
+            this.ungrouping_button.Text = "Разгруппировать";
+            this.ungrouping_button.UseVisualStyleBackColor = true;
+            this.ungrouping_button.Click += new System.EventHandler(this.ungrouping_button_Click);
+            // 
             // grouping_button
             // 
             this.grouping_button.Location = new System.Drawing.Point(3, 400);
@@ -163,16 +173,6 @@
             this.Shape_label.TabIndex = 5;
             this.Shape_label.Text = "Фигура";
             // 
-            // ungrouping_button
-            // 
-            this.ungrouping_button.Location = new System.Drawing.Point(3, 429);
-            this.ungrouping_button.Name = "ungrouping_button";
-            this.ungrouping_button.Size = new System.Drawing.Size(101, 23);
-            this.ungrouping_button.TabIndex = 11;
-            this.ungrouping_button.Text = "Разгруппировать";
-            this.ungrouping_button.UseVisualStyleBackColor = true;
-            this.ungrouping_button.Click += new System.EventHandler(this.ungrouping_button_Click);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -196,21 +196,21 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // сохранитьКакToolStripMenuItem
             // 
             this.сохранитьКакToolStripMenuItem.Name = "сохранитьКакToolStripMenuItem";
-            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.сохранитьКакToolStripMenuItem.Text = "Сохранить как...";
             this.сохранитьКакToolStripMenuItem.Click += new System.EventHandler(this.сохранитьКакToolStripMenuItem_Click);
             // 
@@ -226,7 +226,7 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Новый Рисунок";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);

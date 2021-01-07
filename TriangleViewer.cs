@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Numerics;
+using System.IO;
 
 namespace OOP_4
 {
@@ -16,6 +17,10 @@ namespace OOP_4
         private Brush _color;
         private bool _enabled;
 
+        public TriangleViewer()
+        {
+
+        }
         public Brush color { get => _color; set => _color = value; }
         public bool enabled { get => _enabled; set => _enabled = value; }
         public TriangleViewer(Point position, uint side, Brush color, bool enabled) : base(position, side)
@@ -35,11 +40,19 @@ namespace OOP_4
             Pen pen = new Pen(Brushes.Black, 3);
             e.DrawLines(pen, vertices);
             e.DrawLine(pen, vertices[2], vertices[0]);
-
         }
-        public void ungroup()
+        override public void save(StreamWriter writer) 
         {
-            return;
+            writer.WriteLine("Triangle");
+            writer.WriteLine(_color_Dictionary.KeyWithValue(_color));
+            base.save(writer);
+        }
+
+        override public void load(StreamReader reader)
+        {
+            _color = _color_Dictionary[reader.ReadLine()];
+            base.load(reader);
+            PosToVertices();
         }
     }
 }

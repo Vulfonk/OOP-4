@@ -11,11 +11,15 @@ namespace OOP_4
     {
         private const int E = 1;
         protected Point[] vertices = new Point[3];
+        public Triangle()
+        {
+
+        }
         public Triangle(Point position, uint side) : base(position, side)
         {
             PosToVertices();
         }
-        private void PosToVertices()
+        protected void PosToVertices()
         {
             var dx = (int)(0.5 * _side);
             var dy = (int)(_position.Y + 2 * Math.Sqrt(3) * _side / 10);

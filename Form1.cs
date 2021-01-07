@@ -12,9 +12,10 @@ using System.IO;
 
 namespace OOP_4
 {
+
     public partial class Form1 : Form
     {
-
+        string filename;
         bool ctrl_key = false;
         const int SIZE = 60;
         delegate void PressKeyDelegate(MyListShape shapes);
@@ -110,8 +111,8 @@ namespace OOP_4
                     ShapeViewer shape = shapes.ElementAt(i);
                     if (ctrl_key)
                     {
-                        if (shapes.ElementAt(i).IsHitIn(e.Location))
-                        {                            
+                        if (shape.IsHitIn(e.Location))
+                        {
                             shape.enabled = !shape.enabled;
                             break;
                         }
@@ -305,7 +306,7 @@ namespace OOP_4
 
         private void ungrouping_button_Click(object sender, EventArgs e)
         {
-            foreach(var shape in shapes)
+            foreach (var shape in shapes)
             {
                 if (shape.enabled)
                 {
@@ -318,24 +319,24 @@ namespace OOP_4
         {
             var fileContent = string.Empty;
             var filePath = string.Empty;
-
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\shapes";
-                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //Get the path of specified file
-                    filePath = openFileDialog.FileName;
-
+                    filename = openFileDialog.FileName;
+                    this.Text = filename;
                     //Read the contents of the file into a stream
                     var fileStream = openFileDialog.OpenFile();
 
                     using (StreamReader reader = new StreamReader(fileStream))
                     {
+                        shapes.Clear();
                         shapes.loadShapes(reader);
                         fileContent = reader.ReadToEnd();
                     }
@@ -346,18 +347,70 @@ namespace OOP_4
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if(filename == null)
+            {
+                сохранитьКакToolStripMenuItem_Click(sender, e);
+            }
+            string writePath = filename;
+            try
+            {
+                StreamWriter sw = new StreamWriter(writePath, false, System.Text.Encoding.Default);
 
+
+                foreach (var shape in shapes)
+                {
+                    shape.save(sw);
+                }
+                sw.WriteLine("end");
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+
+            pictureBox.Invalidate();
         }
 
         private void сохранитьКакToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
+            saveFileDialog1.Filter = "txt files (*.txt)|*.txt";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+                string writePath = saveFileDialog1.FileName;
+                try
+                {
+                    StreamWriter sw = new StreamWriter(writePath, false, System.Text.Encoding.Default);
+
+                    filename = writePath;
+                    this.Text = filename;
+                    foreach (var shape in shapes)
+                    {
+                        shape.save(sw);
+                    }
+                    sw.WriteLine("end");
+                    sw.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+
+                }
+            }
+            pictureBox.Invalidate();
         }
-
+       
         private void Menu_panel_Paint(object sender, PaintEventArgs e)
         {
 
         }
+
     }
     class VectorShapeViewer<ShapeViewer> : VectorCCircle<ShapeViewer>
     {
@@ -391,6 +444,20 @@ namespace OOP_4
             return
                 point.X > rectangle.X && point.X < rectangle.X + rectangle.Width &&
                 point.Y > rectangle.Y && point.Y < rectangle.Y + rectangle.Height;
+        }
+    }
+    public static class DictionaryExtention
+    {
+        public static string KeyWithValue(this Dictionary<String, Brush> pairs, Brush Value)
+        {
+            foreach (var pair in pairs.Keys)
+            {
+                if (pairs[pair] == Value)
+                {
+                    return pair;
+                }
+            }
+            return null;
         }
     }
 
