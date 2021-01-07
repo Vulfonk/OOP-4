@@ -15,7 +15,7 @@ namespace OOP_4
     {
         Brush _color;
         bool _enabled;
-        public Brush color { get => _color; set => _color = color; }
+        public Brush color { get => _color; set => _color = value; }
         public bool enabled { get => _enabled; set => _enabled = value; }
 
         public CircleViewer(Point position, uint radius, Brush color, bool enabled) : base(position, radius)
@@ -38,6 +38,10 @@ namespace OOP_4
                 return;
             }
             e.DrawEllipse(new Pen(Brushes.Black, 3), rect);
+        }
+        public void ungroup()
+        {
+            return;
         }
     }
 }

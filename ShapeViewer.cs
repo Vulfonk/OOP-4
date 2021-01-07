@@ -11,7 +11,11 @@ using System.Numerics;
 
 namespace OOP_4
 {
-    interface ShapeViewer : Drawable, Movable, Resizeable
+    interface IGroup
+    {
+        void ungroup();
+    }
+    interface ShapeViewer : Drawable, Movable, Resizeable, IGroup
     {
 
     }

@@ -110,7 +110,7 @@ namespace OOP_4
                     if (ctrl_key)
                     {
                         if (shapes.ElementAt(i).IsHitIn(e.Location))
-                        {
+                        {                            
                             shape.enabled = !shape.enabled;
                             break;
                         }
@@ -141,7 +141,7 @@ namespace OOP_4
                         shape.enabled = false;
                     }
                 }
-                
+
                 if (color_Dictionary.TryGetValue(Color_comboBox.Text, out Brush color))
                 {
                     ShapeViewer shape = null;
@@ -222,8 +222,8 @@ namespace OOP_4
 
                             shape.MoveOn(
                                 displacement.dx, displacement.dy, new Rectangle(
-                                    pictureBox.Location.X,
-                                    pictureBox.Location.Y,
+                                    0,
+                                    0,
                                     pictureBox.Width,
                                     pictureBox.Height)
                                 );
@@ -292,6 +292,47 @@ namespace OOP_4
         {
             final_point = new Point(e.Location.X, e.Location.Y);
         }
+
+        private void grouping_button_Click(object sender, EventArgs e)
+        {
+            Group group = new Group(shapes);
+            foreach (var shape in shapes)
+            {
+                if (shape.enabled)
+                {
+
+                    group.Add(shape);
+                    shapes.Remove(shape);
+                }
+            }
+            shapes.Add(group);
+        }
+
+        private void ungrouping_button_Click(object sender, EventArgs e)
+        {
+            foreach(var shape in shapes)
+            {
+                if (shape.enabled)
+                {
+                    shape.ungroup();
+                }
+            }
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void сохранитьКакToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     class VectorShapeViewer<ShapeViewer> : VectorCCircle<ShapeViewer>
     {
@@ -317,33 +358,13 @@ namespace OOP_4
         bool MoveOn(int dx, int dy, Rectangle workspace);
         bool IsHitIn(Point e);
     }
-    public static class CircleViewerExtension
-    {
-        public static void DrawEllipse(this Graphics gr, Pen pen, (float x, float y, float width, float height) args)
-        {
-            
-            gr.DrawEllipse(pen, args.x, args.y, args.width, args.height);
-        }
-        public static void FillEllipse(this Graphics gr, Brush color, (float x, float y, float width, float height) args)
-        {
-            gr.FillEllipse(color, args.x, args.y, args.width, args.height);
-        }
-        public static void DrawTriangle(this Graphics gr, Pen pen, Point a, Point b, Point c)
-        {
-            gr.DrawLine(pen, a, b);
-            gr.DrawLine(pen, b, c);
-            gr.DrawLine(pen, a, c);
-        }
-        public static void FillTriangle(this Graphics gr, Brush color, Point a, Point b, Point c)
-        {
-        }
-    }
+
     public static class PointExtension
     {
         public static bool InRect(this Point point, Rectangle rectangle)
         {
             return
-                point.X > rectangle.X && point.X < rectangle.X + rectangle.Width && 
+                point.X > rectangle.X && point.X < rectangle.X + rectangle.Width &&
                 point.Y > rectangle.Y && point.Y < rectangle.Y + rectangle.Height;
         }
     }

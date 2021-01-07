@@ -16,7 +16,7 @@ namespace OOP_4
         Brush _color;
         bool _enabled;
         int width = 3;
-        public Brush color { get => _color; set => _color = color; }
+        public Brush color { get => _color; set => _color = value; }
         public bool enabled { get => _enabled; set => _enabled = value; }
         public LineViewer(Point A, Point B, Brush color, bool enabled) : base(A, B)
         {
@@ -30,16 +30,6 @@ namespace OOP_4
             e.DrawLine(new Pen(_color, width), _B, _A);
             
         }
-        override public bool MoveOn(int dx, int dy, Rectangle workspace)
-        {
-            bool flag = new Point().InRect(workspace);
-            if (flag)
-            {
-                _position.X += dx;
-                _position.Y += dy;
-            }
-            return flag;
-        }
         public override void resize(uint new_size)
         {
             width = (int)new_size;
@@ -51,13 +41,17 @@ namespace OOP_4
         }
         public override bool IsHitIn(Point e)
         {
-            Point A = _B;
-            Point B = _position;
+            Point A = _A;
+            Point B = _B;
             Point C = e;
             bool X = ((C.X > A.X - width) && (C.X < B.X + width)) || ((C.X < A.X + width) && (C.X > B.X - width));
             bool Y = ((C.Y > A.Y - width) && (C.Y < B.Y + width)) || ((C.Y < A.Y + width) && (C.Y > B.Y - width));
             return (distance(A, B) * width/4 > square(A, B, C)) && X && Y;
         }
-
+        
+        public void ungroup()
+        {
+            return;
+        }
     }
 }

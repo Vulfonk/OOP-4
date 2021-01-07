@@ -16,7 +16,7 @@ namespace OOP_4
         private Brush _color;
         private bool _enabled;
 
-        public Brush color { get => _color; set => _color = color; }
+        public Brush color { get => _color; set => _color = value; }
         public bool enabled { get => _enabled; set => _enabled = value; }
         public TriangleViewer(Point position, uint side, Brush color, bool enabled) : base(position, side)
         {
@@ -36,6 +36,10 @@ namespace OOP_4
             e.DrawLines(pen, vertices);
             e.DrawLine(pen, vertices[2], vertices[0]);
 
+        }
+        public void ungroup()
+        {
+            return;
         }
     }
 }

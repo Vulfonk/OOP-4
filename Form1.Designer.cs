@@ -32,22 +32,30 @@
             this.SelectionMode_checkBox = new System.Windows.Forms.CheckBox();
             this.Shape_comboBox = new System.Windows.Forms.ComboBox();
             this.Menu_panel = new System.Windows.Forms.Panel();
+            this.grouping_button = new System.Windows.Forms.Button();
             this.reverse_selected_button = new System.Windows.Forms.Button();
             this.Clear_button = new System.Windows.Forms.Button();
             this.Color_label = new System.Windows.Forms.Label();
             this.Color_comboBox = new System.Windows.Forms.ComboBox();
             this.Shape_label = new System.Windows.Forms.Label();
+            this.ungrouping_button = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.Menu_panel.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox
             // 
             this.pictureBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox.Location = new System.Drawing.Point(12, 49);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(870, 573);
+            this.pictureBox.Size = new System.Drawing.Size(870, 536);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
@@ -81,20 +89,32 @@
             // 
             // Menu_panel
             // 
+            this.Menu_panel.Controls.Add(this.ungrouping_button);
+            this.Menu_panel.Controls.Add(this.grouping_button);
             this.Menu_panel.Controls.Add(this.reverse_selected_button);
             this.Menu_panel.Controls.Add(this.Clear_button);
             this.Menu_panel.Controls.Add(this.Color_label);
             this.Menu_panel.Controls.Add(this.Color_comboBox);
             this.Menu_panel.Controls.Add(this.Shape_label);
             this.Menu_panel.Controls.Add(this.Shape_comboBox);
-            this.Menu_panel.Location = new System.Drawing.Point(899, 12);
+            this.Menu_panel.Location = new System.Drawing.Point(899, 49);
             this.Menu_panel.Name = "Menu_panel";
-            this.Menu_panel.Size = new System.Drawing.Size(287, 573);
+            this.Menu_panel.Size = new System.Drawing.Size(287, 536);
             this.Menu_panel.TabIndex = 5;
+            // 
+            // grouping_button
+            // 
+            this.grouping_button.Location = new System.Drawing.Point(3, 400);
+            this.grouping_button.Name = "grouping_button";
+            this.grouping_button.Size = new System.Drawing.Size(101, 23);
+            this.grouping_button.TabIndex = 10;
+            this.grouping_button.Text = "Сгруппировать";
+            this.grouping_button.UseVisualStyleBackColor = true;
+            this.grouping_button.Click += new System.EventHandler(this.grouping_button_Click);
             // 
             // reverse_selected_button
             // 
-            this.reverse_selected_button.Location = new System.Drawing.Point(127, 518);
+            this.reverse_selected_button.Location = new System.Drawing.Point(127, 414);
             this.reverse_selected_button.Name = "reverse_selected_button";
             this.reverse_selected_button.Size = new System.Drawing.Size(157, 52);
             this.reverse_selected_button.TabIndex = 9;
@@ -104,9 +124,9 @@
             // 
             // Clear_button
             // 
-            this.Clear_button.Location = new System.Drawing.Point(3, 547);
+            this.Clear_button.Location = new System.Drawing.Point(3, 458);
             this.Clear_button.Name = "Clear_button";
-            this.Clear_button.Size = new System.Drawing.Size(75, 23);
+            this.Clear_button.Size = new System.Drawing.Size(101, 23);
             this.Clear_button.TabIndex = 8;
             this.Clear_button.Text = "Очистить";
             this.Clear_button.UseVisualStyleBackColor = true;
@@ -142,6 +162,57 @@
             this.Shape_label.TabIndex = 5;
             this.Shape_label.Text = "Фигура";
             // 
+            // ungrouping_button
+            // 
+            this.ungrouping_button.Location = new System.Drawing.Point(3, 429);
+            this.ungrouping_button.Name = "ungrouping_button";
+            this.ungrouping_button.Size = new System.Drawing.Size(101, 23);
+            this.ungrouping_button.TabIndex = 11;
+            this.ungrouping_button.Text = "Разгруппировать";
+            this.ungrouping_button.UseVisualStyleBackColor = true;
+            this.ungrouping_button.Click += new System.EventHandler(this.ungrouping_button_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1198, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьToolStripMenuItem,
+            this.сохранитьToolStripMenuItem,
+            this.сохранитьКакToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // открытьToolStripMenuItem
+            // 
+            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Text = "Открыть";
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // сохранитьКакToolStripMenuItem
+            // 
+            this.сохранитьКакToolStripMenuItem.Name = "сохранитьКакToolStripMenuItem";
+            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьКакToolStripMenuItem.Text = "Сохранить как...";
+            this.сохранитьКакToolStripMenuItem.Click += new System.EventHandler(this.сохранитьКакToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,7 +221,9 @@
             this.Controls.Add(this.Menu_panel);
             this.Controls.Add(this.SelectionMode_checkBox);
             this.Controls.Add(this.pictureBox);
+            this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -159,6 +232,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.Menu_panel.ResumeLayout(false);
             this.Menu_panel.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,6 +250,13 @@
         private System.Windows.Forms.Label Shape_label;
         private System.Windows.Forms.Button Clear_button;
         private System.Windows.Forms.Button reverse_selected_button;
+        private System.Windows.Forms.Button grouping_button;
+        private System.Windows.Forms.Button ungrouping_button;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem;
     }
 }
 

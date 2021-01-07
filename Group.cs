@@ -7,33 +7,100 @@ using System.Threading.Tasks;
 
 namespace OOP_4
 {
-    class Group : ShapeViewer
+    class Group : ListShape<ShapeViewer>, ShapeViewer
     {
-        ListShapesViewer<ShapeViewer>
-
-        public override void Draw(Graphics e)
+        ListShape<ShapeViewer> shapes;
+        public Group(ListShape<ShapeViewer> shapeViewers)
         {
-            throw new NotImplementedException();
+            shapes = shapeViewers;
+        }
+        public Brush color
+        {
+            get
+            {
+                foreach (var shape in this)
+                {
+                    return shape.color;
+                }
+                return null;
+            }
+            set
+            {
+                foreach (var shape in this)
+                {
+                    shape.color = value;
+                }
+            }
+        }
+        public bool enabled
+        {
+            get
+            {
+                foreach (var shape in this)
+                {
+                    return shape.enabled;
+                }
+                return false;
+            }
+            set
+            {
+                foreach (var shape in this)
+                {
+                    shape.enabled = value;
+                }
+            }
+        }
+        public void Draw(Graphics e)
+        {
+            foreach (var shape in this)
+            {
+                shape.Draw(e);
+            }
         }
 
-        public override bool InWorkspace(int maxX, int minX, int maxY, int minY)
+        public bool IsHitIn(Point e)
         {
-            throw new NotImplementedException();
+            foreach (var shape in this)
+            {
+                if (shape.IsHitIn(e))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public override bool IsHitIn(Point e)
+        public bool MoveOn(int dx, int dy, Rectangle workspace)
         {
-            throw new NotImplementedException();
+            foreach (var shape in this)
+            {
+                shape.MoveOn(dx, dy, workspace);
+            }
+            return true;
         }
 
-        public override void resize(uint new_size)
+        public void resize(uint new_size)
         {
-            throw new NotImplementedException();
+            foreach (var shape in this)
+            {
+                shape.resize(new_size);
+            }
         }
 
-        public override void resizeOn(int dsize)
+        public void resizeOn(int dsize)
         {
-            throw new NotImplementedException();
+            foreach (var shape in this)
+            {
+                shape.resizeOn(dsize);
+            }
+        }
+        public void ungroup()
+        {
+            foreach (var shape in this) 
+            {
+                shapes.Add(shape);
+                this.Remove(shape);
+            }
         }
     }
 }

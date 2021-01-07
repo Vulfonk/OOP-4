@@ -15,6 +15,23 @@ namespace OOP_4
             _A = A;
             _B = B;
         }
+
+        virtual public bool MoveOn(int dx, int dy, Rectangle workspace)
+        {
+            Point newposA = new Point(_A.X + dx, _A.Y + dy);
+            Point newposB = new Point(_B.X + dx, _B.Y + dy);
+
+            bool flag = newposA.InRect(workspace) && newposB.InRect(workspace);
+            if (flag)
+            {
+                _A.X += dx;
+                _A.Y += dy;
+                _B.X += dx;
+                _B.Y += dy;
+            }
+            return flag;
+        }
+
         protected double rotate(Point A, Point B, Point C)
         {
             return (B.X - A.X) * (C.Y - B.Y) - (B.Y - A.Y) * (C.X - B.X);

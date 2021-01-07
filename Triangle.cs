@@ -11,8 +11,9 @@ namespace OOP_4
     {
         private const int E = 1;
         protected Point[] vertices = new Point[3];
-        public Triangle(Point position, uint side) : base(position, side){
-            
+        public Triangle(Point position, uint side) : base(position, side)
+        {
+
             var dx = (int)(0.5 * _side);
             var dy = (int)(_position.Y + 2 * Math.Sqrt(3) * _side / 10);
 
@@ -31,6 +32,24 @@ namespace OOP_4
             return
                 ABCSquare + E >= ABDSquare + BCDSquare + CADSquare &&
                 ABCSquare - E <= ABDSquare + BCDSquare + CADSquare;
+        }
+        public override bool MoveOn(int dx, int dy, Rectangle workspace)
+        {
+            bool flag = true;
+            foreach (var ver in vertices)
+            {
+                Point point = new Point(ver.X + dx, ver.Y + dy);
+                flag &= point.InRect(workspace);
+            }
+            if (flag)
+            {
+                for(int i = 0; i < vertices.Length; i++)
+                {
+                    vertices[i].X += dx;
+                    vertices[i].Y += dy;
+                }
+            }
+            return flag;
         }
     }
 }
