@@ -101,6 +101,7 @@
             this.Menu_panel.Name = "Menu_panel";
             this.Menu_panel.Size = new System.Drawing.Size(287, 536);
             this.Menu_panel.TabIndex = 5;
+            this.Menu_panel.Paint += new System.Windows.Forms.PaintEventHandler(this.Menu_panel_Paint);
             // 
             // grouping_button
             // 

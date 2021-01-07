@@ -13,13 +13,21 @@ namespace OOP_4
         protected Point[] vertices = new Point[3];
         public Triangle(Point position, uint side) : base(position, side)
         {
-
+            PosToVertices();
+        }
+        private void PosToVertices()
+        {
             var dx = (int)(0.5 * _side);
             var dy = (int)(_position.Y + 2 * Math.Sqrt(3) * _side / 10);
 
             vertices[0] = new Point(_position.X, (int)(_position.Y - 3 * Math.Sqrt(3) * _side / 10));
             vertices[1] = new Point(_position.X - dx, dy);
             vertices[2] = new Point(_position.X + dx, dy);
+        }
+        public void resizeOn(int dsize)
+        {
+            base.resizeOn(dsize);
+            PosToVertices();
         }
         public override bool IsHitIn(Point e)
         {
@@ -43,6 +51,8 @@ namespace OOP_4
             }
             if (flag)
             {
+                    _position.X += dx;
+                    _position.Y += dy;
                 for(int i = 0; i < vertices.Length; i++)
                 {
                     vertices[i].X += dx;

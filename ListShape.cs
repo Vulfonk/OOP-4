@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace OOP_4
 {
-    public class ListShape<T> : IEnumerable<T> 
+    abstract public class ListShape<T> : IEnumerable<T> where T:ShapeViewer 
     {
         DoublyNode head; 
         DoublyNode tail; 
@@ -72,10 +74,8 @@ namespace OOP_4
                 }
                 else
                 {
-                    
                     tail = current.Previous;
                 }
-
                 
                 if (current.Previous != null)
                 {
@@ -83,7 +83,6 @@ namespace OOP_4
                 }
                 else
                 {
-                    
                     head = current.Next;
                 }
                 count--;
@@ -128,7 +127,6 @@ namespace OOP_4
                 current = current.Next;
             }
         }
-
         public IEnumerable<T> BackEnumerator()
         {
             DoublyNode current = tail;
@@ -138,5 +136,26 @@ namespace OOP_4
                 current = current.Previous;
             }
         }
+        abstract protected T CreateShape(string shapeString, string shapePosition, string shapeColor, int size);
+        
+        public void loadShapes(StreamReader reader)
+        {
+            //string[] readerString = reader.ReadToEnd().Split('\n');
+            Regex regex = new Regex(@"Shape:(.+); Position:(.+); Color:(.+); Size:(\d+)");
+            MatchCollection matches = regex.Matches(reader.ReadToEnd());
+            foreach (Match match in matches)
+            {
+                GroupCollection collect = match.Groups;
+                string shapeString = collect[1].Value;
+                string shapePosition = collect[2].Value;
+                string shapeColor = collect[3].Value;
+                string shapeSize = collect[4].Value;
+                int size = Int32.Parse(shapeSize);
+                this.Add(CreateShape(shapeString, shapePosition, shapeColor, size));
+
+            }
+            
+        }
+
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Numerics;
+using System.IO;
 
 namespace OOP_4
 {
@@ -16,7 +17,7 @@ namespace OOP_4
 
         bool ctrl_key = false;
         const int SIZE = 60;
-        delegate void PressKeyDelegate(ListShape<ShapeViewer> shapes);
+        delegate void PressKeyDelegate(MyListShape shapes);
 
         delegate void PressKeyDelegate2(int d);
         delegate void constructor();
@@ -31,7 +32,7 @@ namespace OOP_4
             [Keys.Delete] = del
         };
 
-        static void add(ListShape<ShapeViewer> shapes)
+        static void add(MyListShape shapes)
         {
             foreach (var shape in shapes)
             {
@@ -40,7 +41,7 @@ namespace OOP_4
             }
 
         }
-        static void sub(ListShape<ShapeViewer> shapes)
+        static void sub(MyListShape shapes)
         {
             foreach (var shape in shapes)
             {
@@ -48,7 +49,7 @@ namespace OOP_4
                     shape.resizeOn(-1);
             }
         }
-        static void del(ListShape<ShapeViewer> shapes)
+        static void del(MyListShape shapes)
         {
 
             foreach (var shape in shapes)
@@ -57,7 +58,7 @@ namespace OOP_4
                     shapes.Remove(shape);
             }
         }
-        static void col(ListShape<ShapeViewer> shapes)
+        static void col(MyListShape shapes)
         {
 
         }
@@ -83,7 +84,7 @@ namespace OOP_4
             [Keys.W] = (0, -displacement),
         };
 
-        ListShape<ShapeViewer> shapes = new ListShape<ShapeViewer>();
+        MyListShape shapes = new MyListShape();
 
         public Form1()
         {
@@ -195,12 +196,6 @@ namespace OOP_4
             if (KeysDxDy_Dictionary.TryGetValue(key, out (int dx, int dy) displacement))
             {
                 bool flag = true;
-                var dx = displacement.dx;
-                var dy = displacement.dy;
-                var maxX = pictureBox.Width;
-                var maxY = pictureBox.Height;
-                var minX = 0;
-                var minY = 0;
                 /*foreach (var shapemove in shapes)
                 {
                     if (shapemove.enabled)
@@ -247,7 +242,7 @@ namespace OOP_4
         }
         private void clear_button_Click(object sender, EventArgs e)
         {
-            shapes = new ListShape<ShapeViewer>();
+            shapes = new MyListShape();
             pictureBox.Invalidate();
         }
 
@@ -321,7 +316,32 @@ namespace OOP_4
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
 
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\shapes";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        shapes.loadShapes(reader);
+                        fileContent = reader.ReadToEnd();
+                    }
+                }
+            }
+            pictureBox.Invalidate();
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -330,6 +350,11 @@ namespace OOP_4
         }
 
         private void сохранитьКакToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Menu_panel_Paint(object sender, PaintEventArgs e)
         {
 
         }
@@ -342,18 +367,18 @@ namespace OOP_4
             _picture = picture;
         }
     }
-    interface Resizeable
+    public interface Resizeable
     {
         void resizeOn(int dsize);
         void resize(uint new_size);
     }
-    interface Drawable
+    public interface Drawable
     {
         Brush color { get; set; }
         bool enabled { get; set; }
         void Draw(Graphics e);
     }
-    interface Movable
+    public interface Movable
     {
         bool MoveOn(int dx, int dy, Rectangle workspace);
         bool IsHitIn(Point e);

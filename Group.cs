@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace OOP_4
 {
-    class Group : ListShape<ShapeViewer>, ShapeViewer
+    class Group : MyListShape, ShapeViewer
     {
-        ListShape<ShapeViewer> shapes;
-        public Group(ListShape<ShapeViewer> shapeViewers)
+        MyListShape shapes;
+        public Group(MyListShape shapeViewers)
         {
             shapes = shapeViewers;
         }

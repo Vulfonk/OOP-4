@@ -18,6 +18,7 @@ namespace OOP_4
         int width = 3;
         public Brush color { get => _color; set => _color = value; }
         public bool enabled { get => _enabled; set => _enabled = value; }
+
         public LineViewer(Point A, Point B, Brush color, bool enabled) : base(A, B)
         {
             _color = color;
