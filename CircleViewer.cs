@@ -11,21 +11,25 @@ using System.Numerics;
 
 namespace OOP_4
 {
-    class CircleViewer : ShapeViewer
+    class CircleViewer : Circle, ShapeViewer
     {
-        private Circle circle;
-        public CircleViewer(Brush color, bool enabled) : base(color, enabled) { }
-        public CircleViewer(Point position, uint radius, Brush color, bool enabled) : base(position, color, enabled)
+        Brush _color;
+        bool _enabled;
+        public Brush color { get => _color; set => _color = color; }
+        public bool enabled { get => _enabled; set => _enabled = value; }
+
+        public CircleViewer(Point position, uint radius, Brush color, bool enabled) : base(position, radius)
         {
-            circle = new Circle(position, radius);
+            _color = color;
+            _enabled = enabled;
         }
-        override public void Draw(Graphics e)
+        public void Draw(Graphics e)
         {
             Rectangle rect = new Rectangle(
-                    (int)(this._position.X - this.circle._radius),
-                    (int)(this._position.Y - this.circle._radius),
-                    (int)(this.circle._radius * 2),
-                    (int)(this.circle._radius * 2));
+                    (int)(this._position.X - this._radius),
+                    (int)(this._position.Y - this._radius),
+                    (int)(this._radius * 2),
+                    (int)(this._radius * 2));
 
             e.FillEllipse(_color, rect);
 
@@ -34,47 +38,6 @@ namespace OOP_4
                 return;
             }
             e.DrawEllipse(new Pen(Brushes.Black, 3), rect);
-        }
-        public override bool MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY)
-        {
-            bool moveable = InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy);
-            if (!moveable)
-            {
-                return false;
-            }
-            else
-            {
-                _position.X += dx;
-                _position.Y += dy;
-                return true;
-            }
-        }
-        public override bool InWorkspace(int maxX, int minX, int maxY, int minY)
-        {
-            return
-                PointIn(maxX, minX, maxY, minY, new Point((int)(_position.X - circle._radius), (int)(_position.Y - circle._radius))) &&
-                PointIn(maxX, minX, maxY, minY, new Point((int)(_position.X + circle._radius), (int)(_position.Y + circle._radius)));
-        }
-
-        override public bool IsHitIn(Point e)
-        {
-            return
-                ((_position.X - e.X) * (_position.X - e.X)
-                + (_position.Y - e.Y) * (_position.Y - e.Y)
-                <=
-                circle._radius * circle._radius);
-        }
-        override public void resizeOn(int dsize)
-        {
-            if (circle._radius + dsize > 0)
-            {
-                circle._radius = (uint)(circle._radius + dsize);
-            }
-        }
-        override public void resize(uint new_size)
-        {
-
-            circle._radius = (uint)new_size;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace OOP_4
         {
             foreach (var shape in shapes)
             {
-                if (shape._enabled)
+                if (shape.enabled)
                     shape.resizeOn(1);
             }
 
@@ -44,7 +44,7 @@ namespace OOP_4
         {
             foreach (var shape in shapes)
             {
-                if (shape._enabled)
+                if (shape.enabled)
                     shape.resizeOn(-1);
             }
         }
@@ -53,7 +53,7 @@ namespace OOP_4
 
             foreach (var shape in shapes)
             {
-                if (shape._enabled)
+                if (shape.enabled)
                     shapes.Remove(shape);
             }
         }
@@ -111,21 +111,21 @@ namespace OOP_4
                     {
                         if (shapes.ElementAt(i).IsHitIn(e.Location))
                         {
-                            shape._enabled = !shape._enabled;
+                            shape.enabled = !shape.enabled;
                             break;
                         }
                     }
                     else
                     {
-                        //flag &= !(shapes[i]._enabled = shapes[i].IsHitIn(e) && flag);
+                        //flag &= !(shapes[i].enabled = shapes[i].IsHitIn(e) && flag);
                         if (shape.IsHitIn(e.Location) && flag)
                         {
-                            shape._enabled = true;
+                            shape.enabled = true;
                             flag = false;
                         }
                         else
                         {
-                            shape._enabled = false;
+                            shape.enabled = false;
                         }
                     }
                 }
@@ -138,10 +138,10 @@ namespace OOP_4
 
                     if (shape != null)
                     {
-                        shape._enabled = false;
+                        shape.enabled = false;
                     }
                 }
-
+                
                 if (color_Dictionary.TryGetValue(Color_comboBox.Text, out Brush color))
                 {
                     ShapeViewer shape = null;
@@ -172,7 +172,7 @@ namespace OOP_4
             for (int i = 0; i < shapes.Count; i++)
             {
                 ShapeViewer shape = shapes.ElementAt(i);
-                if (shape != null && !shape._enabled)
+                if (shape != null && !shape.enabled)
                 {
                     shape.Draw(e.Graphics);
                 }
@@ -180,7 +180,7 @@ namespace OOP_4
             for (int i = 0; i < shapes.Count; i++)
             {
                 ShapeViewer shape = shapes.ElementAt(i);
-                if (shape != null && shape._enabled)
+                if (shape != null && shape.enabled)
                 {
                     shape.Draw(e.Graphics);
                 }
@@ -201,9 +201,9 @@ namespace OOP_4
                 var maxY = pictureBox.Height;
                 var minX = 0;
                 var minY = 0;
-                foreach (var shapemove in shapes)
+                /*foreach (var shapemove in shapes)
                 {
-                    if (shapemove._enabled)
+                    if (shapemove.enabled)
                     {
                         flag = shapemove.InWorkspace(maxX - dx, minX - dx, maxY - dy, minY - dy);
                     }
@@ -211,21 +211,22 @@ namespace OOP_4
                     {
                         break;
                     }
-                }
+                }*/
                 if (flag)
                     for (int i = 0; i < shapes.Count; i++)
                     {
                         ShapeViewer shape = shapes.ElementAt(i);
 
-                        if (shape != null && shape._enabled)
+                        if (shape != null && shape.enabled)
                         {
-                            
+
                             shape.MoveOn(
-                                displacement.dx, displacement.dy,
-                                pictureBox.Width,
-                                0,
-                                pictureBox.Height,
-                                0);
+                                displacement.dx, displacement.dy, new Rectangle(
+                                    pictureBox.Location.X,
+                                    pictureBox.Location.Y,
+                                    pictureBox.Width,
+                                    pictureBox.Height)
+                                );
 
                         }
                     }
@@ -256,9 +257,9 @@ namespace OOP_4
             {
                 ShapeViewer shape = shapes.ElementAt(i);
 
-                if (shape != null && shape._enabled)
+                if (shape != null && shape.enabled)
                 {
-                    shape._color = color_Dictionary[Color_comboBox.Text];
+                    shape.color = color_Dictionary[Color_comboBox.Text];
                 }
             }
             pictureBox.Invalidate();
@@ -276,7 +277,7 @@ namespace OOP_4
                 ShapeViewer shape = shapes.ElementAt(i);
 
                 if (shape != null)
-                    shape._enabled = !shape._enabled;
+                    shape.enabled = !shape.enabled;
             }
             pictureBox.Invalidate();
         }
@@ -292,7 +293,7 @@ namespace OOP_4
             final_point = new Point(e.Location.X, e.Location.Y);
         }
     }
-    class VectorShapeViewer<Shape> : VectorCCircle<Shape>
+    class VectorShapeViewer<ShapeViewer> : VectorCCircle<ShapeViewer>
     {
         private PictureBox _picture;
         public VectorShapeViewer(PictureBox picture) : base()
@@ -304,22 +305,20 @@ namespace OOP_4
     {
         void resizeOn(int dsize);
         void resize(uint new_size);
-
     }
     interface Drawable
     {
-        void setColor(Brush color);
+        Brush color { get; set; }
+        bool enabled { get; set; }
         void Draw(Graphics e);
-        bool IsHitIn(Point e);
     }
     interface Movable
     {
-        bool MoveOn(int dx, int dy, int maxX, int minX, int maxY, int minY);
-        bool InWorkspace(int maxX, int minX, int maxY, int minY);
+        bool MoveOn(int dx, int dy, Rectangle workspace);
+        bool IsHitIn(Point e);
     }
     public static class CircleViewerExtension
     {
-
         public static void DrawEllipse(this Graphics gr, Pen pen, (float x, float y, float width, float height) args)
         {
             
@@ -339,4 +338,14 @@ namespace OOP_4
         {
         }
     }
+    public static class PointExtension
+    {
+        public static bool InRect(this Point point, Rectangle rectangle)
+        {
+            return
+                point.X > rectangle.X && point.X < rectangle.X + rectangle.Width && 
+                point.Y > rectangle.Y && point.Y < rectangle.Y + rectangle.Height;
+        }
+    }
+
 }

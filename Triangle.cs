@@ -9,7 +9,28 @@ namespace OOP_4
 {
     class Triangle : Polygon
     {
-        public Triangle(Point position, uint side) : base(position, side){ }
+        private const int E = 1;
+        protected Point[] vertices = new Point[3];
+        public Triangle(Point position, uint side) : base(position, side){
+            
+            var dx = (int)(0.5 * _side);
+            var dy = (int)(_position.Y + 2 * Math.Sqrt(3) * _side / 10);
 
+            vertices[0] = new Point(_position.X, (int)(_position.Y - 3 * Math.Sqrt(3) * _side / 10));
+            vertices[1] = new Point(_position.X - dx, dy);
+            vertices[2] = new Point(_position.X + dx, dy);
+        }
+        public override bool IsHitIn(Point e)
+        {
+            double ABCSquare = square(vertices);
+
+            double ABDSquare = square(e, vertices[1], vertices[2]);
+            double BCDSquare = square(vertices[0], e, vertices[2]);
+            double CADSquare = square(vertices[0], vertices[1], e);
+
+            return
+                ABCSquare + E >= ABDSquare + BCDSquare + CADSquare &&
+                ABCSquare - E <= ABDSquare + BCDSquare + CADSquare;
+        }
     }
 }
