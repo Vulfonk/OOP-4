@@ -12,6 +12,7 @@ namespace OOP_4
 {
     abstract public class ListShape<T> : IEnumerable<T> where T:ShapeViewer 
     {
+        
         DoublyNode head; 
         DoublyNode tail; 
         int count;  
@@ -131,7 +132,7 @@ namespace OOP_4
                 current = current.Previous;
             }
         }
-        abstract protected T CreateShape(String shapeString);
+        abstract public T CreateShape(String shapeString);
         
         public void loadShapes(StreamReader reader)
         {
@@ -149,5 +150,6 @@ namespace OOP_4
             
         }
 
+       
     }
 }

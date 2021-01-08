@@ -39,6 +39,11 @@ namespace OOP_4
             }
             return flag;
         }
+        virtual public bool IsMoveable(int dx, int dy, Rectangle workspace)
+        {
+            Point newpos = new Point(_position.X + dx, _position.Y + dy);
+            return newpos.InRect(workspace);
+        }
         abstract public void resize(uint new_size);
         abstract public void resizeOn(int dsize);
         abstract public bool IsHitIn(Point e);

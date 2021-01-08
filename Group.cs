@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace OOP_4
 {
-    class Group : MyListShape, ShapeViewer
+    class Group : ListShape<ShapeViewer>, ShapeViewer, ISubject
     {
         MyListShape shapes;
         public void NotifyEveryone()
         {
-            foreach (var obs in _observers)
+            foreach (var obs in shapes._observers)
             {
                 obs.Update(shapes);
             }
@@ -21,7 +21,7 @@ namespace OOP_4
         public Group(MyListShape shapeViewers) : base()
         {
             shapes = shapeViewers;
-            _observers = shapeViewers._observers;
+            shapes._observers = shapeViewers._observers;
         }
         public Group():base()
         {
@@ -164,6 +164,21 @@ namespace OOP_4
                 shape.load(reader);
                 this.Add(shape);
             }
+        }
+
+        public override ShapeViewer CreateShape(string shapeString)
+        {
+            return shapes.CreateShape(shapeString);
+        }
+
+        public void Attach(IObserver observer)
+        {
+            shapes.Attach(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            shapes.Detach(observer);
         }
     }
 }

@@ -15,7 +15,6 @@ namespace OOP_4
     class TreeViewer : IObserver
     {
         TreeView _viewer;
-        TreeNode root;
 
         public TreeViewer(TreeView viewer)
         {

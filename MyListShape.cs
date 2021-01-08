@@ -11,6 +11,22 @@ namespace OOP_4
     class MyListShape : ListShape<ShapeViewer>, ISubject
     {
         public List<IObserver> _observers;
+        public void NotifyEveryone()
+        {
+            foreach (var obs in _observers)
+            {
+                obs.Update(this);
+            }
+        }
+        public void Attach(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
         public MyListShape()
         {
             _observers = new List<IObserver>();
@@ -36,25 +52,9 @@ namespace OOP_4
             NotifyEveryone();
             return flag;
         }
-        public void Attach(IObserver observer)
-        {
-             _observers.Add(observer);
-        }
 
-        public void Detach(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
 
-        public void NotifyEveryone()
-        {
-            foreach(var obs in _observers)
-            {
-                obs.Update(this);
-            }
-        }
-
-        protected override ShapeViewer CreateShape(string shapeString)
+        public override ShapeViewer CreateShape(string shapeString)
         {
 
             ShapeViewer shape;
