@@ -12,6 +12,16 @@ using System.IO;
 
 namespace OOP_4
 {
+    public interface IObserver
+    {
+        void Update(ISubject subject);
+    }
+    public interface ISubject
+    {
+        void Attach(IObserver observer);
+        void Detach(IObserver observer);
+        void NotifyEveryone();
+    }
     public interface IGroup
     {
         void ungroup();

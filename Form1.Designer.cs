@@ -32,6 +32,7 @@
             this.SelectionMode_checkBox = new System.Windows.Forms.CheckBox();
             this.Shape_comboBox = new System.Windows.Forms.ComboBox();
             this.Menu_panel = new System.Windows.Forms.Panel();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.ungrouping_button = new System.Windows.Forms.Button();
             this.grouping_button = new System.Windows.Forms.Button();
             this.reverse_selected_button = new System.Windows.Forms.Button();
@@ -53,9 +54,9 @@
             // 
             this.pictureBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox.Location = new System.Drawing.Point(12, 49);
+            this.pictureBox.Location = new System.Drawing.Point(12, 27);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(870, 536);
+            this.pictureBox.Size = new System.Drawing.Size(870, 558);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
@@ -82,13 +83,14 @@
             "Квадрат",
             "Треугольник",
             "Отрезок"});
-            this.Shape_comboBox.Location = new System.Drawing.Point(115, 13);
+            this.Shape_comboBox.Location = new System.Drawing.Point(98, 14);
             this.Shape_comboBox.Name = "Shape_comboBox";
             this.Shape_comboBox.Size = new System.Drawing.Size(169, 21);
             this.Shape_comboBox.TabIndex = 4;
             // 
             // Menu_panel
             // 
+            this.Menu_panel.Controls.Add(this.treeView1);
             this.Menu_panel.Controls.Add(this.ungrouping_button);
             this.Menu_panel.Controls.Add(this.grouping_button);
             this.Menu_panel.Controls.Add(this.reverse_selected_button);
@@ -97,17 +99,25 @@
             this.Menu_panel.Controls.Add(this.Color_comboBox);
             this.Menu_panel.Controls.Add(this.Shape_label);
             this.Menu_panel.Controls.Add(this.Shape_comboBox);
-            this.Menu_panel.Location = new System.Drawing.Point(899, 49);
+            this.Menu_panel.Location = new System.Drawing.Point(899, 27);
             this.Menu_panel.Name = "Menu_panel";
-            this.Menu_panel.Size = new System.Drawing.Size(287, 536);
+            this.Menu_panel.Size = new System.Drawing.Size(287, 558);
             this.Menu_panel.TabIndex = 5;
             this.Menu_panel.Paint += new System.Windows.Forms.PaintEventHandler(this.Menu_panel_Paint);
             // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(16, 86);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(251, 380);
+            this.treeView1.TabIndex = 12;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            // 
             // ungrouping_button
             // 
-            this.ungrouping_button.Location = new System.Drawing.Point(3, 429);
+            this.ungrouping_button.Location = new System.Drawing.Point(16, 501);
             this.ungrouping_button.Name = "ungrouping_button";
-            this.ungrouping_button.Size = new System.Drawing.Size(101, 23);
+            this.ungrouping_button.Size = new System.Drawing.Size(110, 23);
             this.ungrouping_button.TabIndex = 11;
             this.ungrouping_button.Text = "Разгруппировать";
             this.ungrouping_button.UseVisualStyleBackColor = true;
@@ -115,9 +125,9 @@
             // 
             // grouping_button
             // 
-            this.grouping_button.Location = new System.Drawing.Point(3, 400);
+            this.grouping_button.Location = new System.Drawing.Point(16, 472);
             this.grouping_button.Name = "grouping_button";
-            this.grouping_button.Size = new System.Drawing.Size(101, 23);
+            this.grouping_button.Size = new System.Drawing.Size(110, 23);
             this.grouping_button.TabIndex = 10;
             this.grouping_button.Text = "Сгруппировать";
             this.grouping_button.UseVisualStyleBackColor = true;
@@ -125,9 +135,9 @@
             // 
             // reverse_selected_button
             // 
-            this.reverse_selected_button.Location = new System.Drawing.Point(127, 414);
+            this.reverse_selected_button.Location = new System.Drawing.Point(132, 472);
             this.reverse_selected_button.Name = "reverse_selected_button";
-            this.reverse_selected_button.Size = new System.Drawing.Size(157, 52);
+            this.reverse_selected_button.Size = new System.Drawing.Size(135, 81);
             this.reverse_selected_button.TabIndex = 9;
             this.reverse_selected_button.Text = "Выделить не выделенное не выделив выделенное";
             this.reverse_selected_button.UseVisualStyleBackColor = true;
@@ -135,9 +145,9 @@
             // 
             // Clear_button
             // 
-            this.Clear_button.Location = new System.Drawing.Point(3, 458);
+            this.Clear_button.Location = new System.Drawing.Point(16, 530);
             this.Clear_button.Name = "Clear_button";
-            this.Clear_button.Size = new System.Drawing.Size(101, 23);
+            this.Clear_button.Size = new System.Drawing.Size(110, 23);
             this.Clear_button.TabIndex = 8;
             this.Clear_button.Text = "Очистить";
             this.Clear_button.UseVisualStyleBackColor = true;
@@ -147,7 +157,7 @@
             // 
             this.Color_label.AutoSize = true;
             this.Color_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.Color_label.Location = new System.Drawing.Point(13, 59);
+            this.Color_label.Location = new System.Drawing.Point(13, 55);
             this.Color_label.Name = "Color_label";
             this.Color_label.Size = new System.Drawing.Size(42, 18);
             this.Color_label.TabIndex = 7;
@@ -157,7 +167,7 @@
             // 
             this.Color_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Color_comboBox.FormattingEnabled = true;
-            this.Color_comboBox.Location = new System.Drawing.Point(115, 59);
+            this.Color_comboBox.Location = new System.Drawing.Point(98, 55);
             this.Color_comboBox.Name = "Color_comboBox";
             this.Color_comboBox.Size = new System.Drawing.Size(169, 21);
             this.Color_comboBox.TabIndex = 6;
@@ -182,6 +192,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(1198, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // файлToolStripMenuItem
             // 
@@ -258,6 +269,7 @@
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 

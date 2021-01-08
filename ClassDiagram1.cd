@@ -1,51 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
-  <Class Name="OOP_4.VectorCCircle&lt;Shape&gt;" Collapsed="true">
-    <Position X="13" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAACIAAAEAAAAAAAAAAAQAAAAIAgAA=</HashCode>
-      <FileName>VectorCCircle.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="OOP_4.TriangleViewer" Collapsed="true">
-    <Position X="11.25" Y="4.75" Width="1.5" />
+    <Position X="9.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAgAAAACAAAAAAAAAAACQAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAICIAgAAAACAAAAAAAAAAACQAAAAAAAAAAA=</HashCode>
       <FileName>TriangleViewer.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.846" />
   </Class>
   <Class Name="OOP_4.Triangle" Collapsed="true">
-    <Position X="5" Y="3.25" Width="1.5" />
-    <InheritanceLine Type="OOP_4.Polygon" FixedFromPoint="true">
+    <Position X="9.5" Y="4.25" Width="1.5" />
+    <InheritanceLine Type="OOP_4.Polygon" ManuallyRouted="true" FixedFromPoint="true">
       <Path>
-        <Point X="7" Y="4" />
-        <Point X="6.76" Y="4" />
-        <Point X="6.76" Y="3.596" />
-        <Point X="6.5" Y="3.596" />
+        <Point X="8.875" Y="2.441" />
+        <Point X="8.875" Y="3.802" />
+        <Point X="10.25" Y="3.802" />
+        <Point X="10.25" Y="4.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAA=</HashCode>
+      <HashCode>BAgAAAAAIAAAAAAAAAAAAAAAAAAQAAAAQAAAAgAAAAA=</HashCode>
       <FileName>Triangle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOP_4.SquadeViewer" Collapsed="true">
-    <Position X="11.25" Y="3.75" Width="1.5" />
+    <Position X="6.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAgAAAACAAAAAAAAAAACQAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAICIAgAAAACAAAAAAAAAAACQAAAAAAAAAAA=</HashCode>
       <FileName>SquadeViewer.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.846" />
   </Class>
   <Class Name="OOP_4.Squade" Collapsed="true">
-    <Position X="5" Y="4.25" Width="1.5" />
+    <Position X="6.75" Y="4.25" Width="1.5" />
     <InheritanceLine Type="OOP_4.Polygon" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="7" Y="4" />
-        <Point X="6.76" Y="4" />
-        <Point X="6.76" Y="4.562" />
-        <Point X="6.5" Y="4.562" />
+        <Point X="8.875" Y="2.441" />
+        <Point X="8.875" Y="3.802" />
+        <Point X="7.5" Y="3.802" />
+        <Point X="7.5" Y="4.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -54,114 +47,107 @@
     </TypeIdentifier>
   </Class>
   <Class Name="OOP_4.Shape" Collapsed="true">
-    <Position X="8.25" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAIAAAAAAAAAAAAAAAAAAAAAAAQQAAgAAAAAA=</HashCode>
+      <HashCode>AAgAAAAAIICAAAAAAAAAAAAAAAQAAAAAQQAAgAAAACA=</HashCode>
       <FileName>Shape.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="OOP_4.Circle" Collapsed="true">
-    <Position X="7" Y="2.75" Width="1.5" />
+    <Position X="4.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAgAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>CAgAAAAAIICAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Circle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOP_4.CircleViewer" Collapsed="true">
-    <Position X="11.25" Y="2.75" Width="1.5" />
+    <Position X="4.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAgAAAACAAAAAAAAAAACQAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAICIAgAAAACAAAAAAAAAAACQAAAAAAAAAAA=</HashCode>
       <FileName>CircleViewer.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.877" />
   </Class>
   <Class Name="OOP_4.Line" Collapsed="true">
-    <Position X="7" Y="1.75" Width="1.5" />
+    <Position X="6.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgEAAAAIAAAAAAAAAAQAAAAAEAAAAAAAQAAAAgAIAA=</HashCode>
+      <HashCode>AAgEAAAAIICAAAAAAAAQAAAAAEAAAAAAQQAAAAgAIAA=</HashCode>
       <FileName>Line.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOP_4.LineViewer" Collapsed="true">
-    <Position X="11.25" Y="1.75" Width="1.5" />
+    <Position X="6.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAIAAIAgAAQACAAAAAAAAAAACQQQAAAAAAAAA=</HashCode>
+      <HashCode>AAgAAAAAIICIAgAAQACAAAAAAAAAAACQAQAAAAAAAAA=</HashCode>
       <FileName>LineViewer.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.835" />
   </Class>
   <Class Name="OOP_4.Polygon" Collapsed="true">
-    <Position X="7" Y="3.75" Width="1.5" />
+    <Position X="8.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAIAAAAAAAAAAAAAAAAEAAAAAACQAAAAAAIAA=</HashCode>
+      <HashCode>AAgAAAAAIICAAAAAAAAAAAAAAEAAAAAACQAAAAAAIAA=</HashCode>
       <FileName>Polygon.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOP_4.ListShape&lt;T&gt;" Collapsed="true">
-    <Position X="14.75" Y="0.5" Width="1.5" />
+    <Position X="10.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAJAAAIAgAAAAAAABAAAJAQAAAAAAAAEAAAAAABQAwA=</HashCode>
+      <HashCode>AAJAAAIAgAAABAAABAAAJAQAAAAAABAEAAAAAABQAwA=</HashCode>
       <FileName>ListShape.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.929" />
+  </Class>
+  <Class Name="OOP_4.Group" Collapsed="true">
+    <Position X="10.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAoAAAAAIICAAgAAAACAJAAAAAQAAACAQQAAAABABAA=</HashCode>
+      <FileName>Group.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.887" />
+  </Class>
+  <Class Name="OOP_4.MyListShape" Collapsed="true">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAIAAAAAAAAAAIAAAAACAAAAAAQAAAA=</HashCode>
+      <FileName>MyListShape.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="OOP_4.Form1">
-    <Position X="0.5" Y="0.5" Width="2.5" />
-    <NestedTypes>
-      <Delegate Name="OOP_4.Form1.PressKeyDelegate" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Form1.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Delegate>
-      <Delegate Name="OOP_4.Form1.PressKeyDelegate2" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Form1.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Delegate>
-      <Delegate Name="OOP_4.Form1.constructor" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Form1.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Delegate>
-    </NestedTypes>
-    <TypeIdentifier>
-      <HashCode>AAAABIABEbEISFABBACAgQAGQCgAgAAEAAYBAAAGBkA=</HashCode>
-      <FileName>Form1.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="OOP_4.VectorShapeViewer&lt;Shape&gt;" Collapsed="true">
-    <Position X="13" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
-      <FileName>Form1.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="OOP_4.CircleViewerExtension" Collapsed="true">
-    <Position X="14.75" Y="1.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAAAAAgAAAAAAAAIAAAAAAQAAAAAA=</HashCode>
-      <FileName>Form1.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Interface Name="OOP_4.Drawable" Collapsed="true">
-    <Position X="4.5" Y="0.5" Width="1.5" />
+    <Position X="18.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAAgAAAACAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAACAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="OOP_4.Movable" Collapsed="true">
-    <Position X="4.5" Y="2" Width="1.5" />
+    <Position X="16.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="OOP_4.Resizeable" Collapsed="true">
-    <Position X="4.5" Y="1.25" Width="1.5" />
+    <Position X="14.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OOP_4.ShapeViewer" Collapsed="true">
+    <Position X="15.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShapeViewer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OOP_4.ISaveLoad" Collapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShapeViewer.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

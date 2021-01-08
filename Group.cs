@@ -11,12 +11,19 @@ namespace OOP_4
     class Group : MyListShape, ShapeViewer
     {
         MyListShape shapes;
-
-        public Group(MyListShape shapeViewers)
+        public void NotifyEveryone()
+        {
+            foreach (var obs in _observers)
+            {
+                obs.Update(shapes);
+            }
+        }
+        public Group(MyListShape shapeViewers) : base()
         {
             shapes = shapeViewers;
+            _observers = shapeViewers._observers;
         }
-        public Group()
+        public Group():base()
         {
 
         }
@@ -47,7 +54,7 @@ namespace OOP_4
         {
             foreach (var shape in this)
             {
-                shapes.Add(shape);
+                shapes.AddFirst(shape);
             }
             base.Clear();
         }
@@ -134,6 +141,8 @@ namespace OOP_4
         public void ungroup()
         {
             this.Clear();
+            shapes.Remove(this);
+            NotifyEveryone();
         }
 
         public void save(StreamWriter writer)

@@ -94,6 +94,8 @@ namespace OOP_4
             {
                 Color_comboBox.Items.Add(color_item.Key);
             }
+            TreeViewer tree = new TreeViewer(treeView1);
+            shapes.Attach(tree);
         }
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -243,7 +245,7 @@ namespace OOP_4
         }
         private void clear_button_Click(object sender, EventArgs e)
         {
-            shapes = new MyListShape();
+            shapes.Clear();
             pictureBox.Invalidate();
         }
 
@@ -411,6 +413,15 @@ namespace OOP_4
 
         }
 
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
     class VectorShapeViewer<ShapeViewer> : VectorCCircle<ShapeViewer>
     {
@@ -460,5 +471,4 @@ namespace OOP_4
             return null;
         }
     }
-
 }
