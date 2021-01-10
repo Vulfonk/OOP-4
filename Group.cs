@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OOP_4
 {
-    class Group : ListShape<ShapeViewer>, ShapeViewer, ISubject
+    class Group : ListShape<ShapeViewer>, ShapeViewer, ISubject, IGroup
     {
         MyListShape shapes;
         public void NotifyEveryone()
@@ -160,15 +160,15 @@ namespace OOP_4
             int count = Int32.Parse(reader.ReadLine());
             for(int i = 0; i < count; i++)
             {
-                ShapeViewer shape = CreateShape(reader.ReadLine());
+                ShapeViewer shape = CreateObject(reader.ReadLine());
                 shape.load(reader);
                 this.Add(shape);
             }
         }
 
-        public override ShapeViewer CreateShape(string shapeString)
+        public override ShapeViewer CreateObject(string shapeString)
         {
-            return shapes.CreateShape(shapeString);
+            return shapes.CreateObject(shapeString);
         }
 
         public void Attach(IObserver observer)

@@ -10,9 +10,8 @@ using System.Windows.Forms;
 
 namespace OOP_4
 {
-    abstract public class ListShape<T> : IEnumerable<T> where T:ShapeViewer 
+    abstract public class ListShape<T> : IEnumerable<T> where T : ISaveLoad 
     {
-        
         DoublyNode head; 
         DoublyNode tail; 
         int count;  
@@ -113,7 +112,6 @@ namespace OOP_4
         {
             return ((IEnumerable)this).GetEnumerator();
         }
-
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             DoublyNode current = head;
@@ -132,24 +130,20 @@ namespace OOP_4
                 current = current.Previous;
             }
         }
-        abstract public T CreateShape(String shapeString);
+        abstract public T CreateObject(String shapeString);
         
-        public void loadShapes(StreamReader reader)
+        public void LoadObject(StreamReader reader)
         {
             for (string line = reader.ReadLine(); line != "end"; line = reader.ReadLine())
             {
                 string shapeString = line;
-                T shape = CreateShape(shapeString);
+                T shape = CreateObject(shapeString);
                 if(shape != null)
                 {
                     shape.load(reader);
                 }
                 this.Add(shape);
-            }
-            
-            
-        }
-
-       
+            }            
+        }       
     }
 }

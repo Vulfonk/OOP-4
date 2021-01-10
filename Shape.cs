@@ -47,10 +47,6 @@ namespace OOP_4
         abstract public void resize(uint new_size);
         abstract public void resizeOn(int dsize);
         abstract public bool IsHitIn(Point e);
-        virtual public void ungroup() 
-        { 
-        
-        }
         virtual public void save(StreamWriter writer)
         {
             writer.WriteLine(_position.X + "," + _position.Y);
@@ -61,6 +57,5 @@ namespace OOP_4
             _position.X = Int32.Parse(position[0]);
             _position.Y = Int32.Parse(position[1]);
         }
-
     }
 }

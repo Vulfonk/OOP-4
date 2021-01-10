@@ -65,12 +65,12 @@ namespace OOP_4
             double square = Math.Sqrt(proiz);
             return square;
         }
-        virtual public void save(StreamWriter writer)
+        virtual public new void save(StreamWriter writer)
         {
             writer.WriteLine(_side);
             base.save(writer);
         }
-        virtual public void load(StreamReader reader)
+        virtual public new void load(StreamReader reader)
         {
             _side = (uint)Int32.Parse(reader.ReadLine());            
             base.load(reader);

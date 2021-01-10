@@ -9,6 +9,7 @@
     <RootNamespace>OOP_4</RootNamespace>
     <AssemblyName>OOP 4</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -33,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,11 +53,14 @@
   <ItemGroup>
     <Compile Include="Circle.cs" />
     <Compile Include="CircleViewer.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="LineViewer.cs" />
-    <Compile Include="ListShapes.cs" />
+    <Compile Include="ListShape.cs" />
+    <Compile Include="MyListShape.cs" />
     <Compile Include="ShapeViewer.cs" />
     <Compile Include="SquadeViewer.cs" />
+    <Compile Include="TreeViewer.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="Squade.cs" />
     <Compile Include="Shape.cs" />

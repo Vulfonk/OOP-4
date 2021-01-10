@@ -31,8 +31,5 @@ namespace OOP_4
         void save(StreamWriter writer);
         void load(StreamReader reader);
     }
-    public interface ShapeViewer : Drawable, Movable, Resizeable, IGroup, ISaveLoad
-    {
-
-    }
+    public interface ShapeViewer : Drawable, Movable, Resizeable, ISaveLoad { }
 }

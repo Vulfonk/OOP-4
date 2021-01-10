@@ -53,8 +53,18 @@ namespace OOP_4
             return flag;
         }
 
+        public ShapeViewer IsHitIn(Point position)
+        {
+            foreach (var shape in this)
+            {
+                if(shape.IsHitIn(position)){
+                    return shape;
+                }
+            }
+            return null;
+        }
 
-        public override ShapeViewer CreateShape(string shapeString)
+        public override ShapeViewer CreateObject(string shapeString)
         {
 
             ShapeViewer shape;
@@ -85,5 +95,6 @@ namespace OOP_4
             }
             return shape;
         }
+
     }
 }

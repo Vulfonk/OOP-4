@@ -20,7 +20,7 @@ namespace OOP_4
         {
 
         }
-        virtual public bool MoveOn(int dx, int dy, Rectangle workspace)
+        virtual public new bool MoveOn(int dx, int dy, Rectangle workspace)
         {
             Point newposA = new Point(_A.X + dx, _A.Y + dy);
             Point newposB = new Point(_B.X + dx, _B.Y + dy);

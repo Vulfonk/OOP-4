@@ -26,6 +26,15 @@ namespace OOP_4
         Point start_point;
         Point final_point;
 
+        Dictionary<string, string> ShapeEnRusDictionary = new Dictionary<string, string>
+        {
+            ["Квадрат"] = "Squade",
+            ["Круг"] = "Circle",
+            ["Отрезок"] = "Line",
+            ["Треугольник"] = "Triangle"
+
+        };
+
         Dictionary<Keys, PressKeyDelegate> KeyDelegate_Dictionary = new Dictionary<Keys, PressKeyDelegate>
         {
             [Keys.Add] = add,
@@ -100,7 +109,6 @@ namespace OOP_4
 
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-
             if (!(e.Button == MouseButtons.Left))
             {
                 return;
@@ -298,9 +306,7 @@ namespace OOP_4
             {
                 if (shape.enabled)
                 {
-
                     group.Add(shape);
-                    shapes.Remove(shape);
                 }
             }
             shapes.Add(group);
@@ -308,11 +314,11 @@ namespace OOP_4
 
         private void ungrouping_button_Click(object sender, EventArgs e)
         {
-            foreach (var shape in shapes)
+            foreach (var shape in shapes) 
             {
-                if (shape.enabled)
+                if (shape.enabled && shape is IGroup)
                 {
-                    shape.ungroup();
+                    (shape as IGroup).ungroup();
                 }
             }
         }
@@ -339,7 +345,7 @@ namespace OOP_4
                     using (StreamReader reader = new StreamReader(fileStream))
                     {
                         shapes.Clear();
-                        shapes.loadShapes(reader);
+                        shapes.LoadObject(reader);
                         fileContent = reader.ReadToEnd();
                     }
                 }

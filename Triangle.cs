@@ -28,7 +28,7 @@ namespace OOP_4
             vertices[1] = new Point(_position.X - dx, dy);
             vertices[2] = new Point(_position.X + dx, dy);
         }
-        public void resizeOn(int dsize)
+        public override void resizeOn(int dsize)
         {
             base.resizeOn(dsize);
             PosToVertices();

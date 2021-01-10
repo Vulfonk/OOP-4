@@ -30,7 +30,6 @@ namespace OOP_4
             {
                 foreach(var shape in shapes as MyListShape)
                 {
-
                     processNode(treeNode, shape);
                 }
             }
