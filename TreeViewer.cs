@@ -15,30 +15,45 @@ namespace OOP_4
     class TreeViewer : IObserver
     {
         TreeView _viewer;
-
-        public TreeViewer(TreeView viewer)
+        Dictionary<TreeNode, ShapeViewer> ShapeDictionary = new Dictionary<TreeNode, ShapeViewer>();
+        public TreeViewer(TreeView viewer, ListShape<ShapeViewer> shapeViewers)
         {
             _viewer = viewer;
+            formingTree(shapeViewers);
         }
 
-        public void Update(ISubject shapes)
+        public void Update(ISubject subject, ShapeViewer enabledShape)
+        {
+            if(subject is ListShape<ShapeViewer>)
+            {
+                formingTree(subject as ListShape<ShapeViewer>);
+            }
+        }
+
+        void formingTree(ListShape<ShapeViewer> shapeViewers)
         {
             _viewer.Nodes.Clear();
-            TreeNode treeNode = new TreeNode(shapes.ToString());
+            TreeNode treeNode = new TreeNode(shapeViewers.ToString());
             _viewer.Nodes.Add(treeNode);
-            if (shapes is MyListShape)
+            if (shapeViewers is MyListShape)
             {
-                foreach(var shape in shapes as MyListShape)
+                foreach(var shape in shapeViewers as MyListShape)
                 {
                     processNode(treeNode, shape);
                 }
             }
         }
+
         void processNode(TreeNode node, ShapeViewer shape)
         {
             TreeNode treeNode = new TreeNode(shape.ToString());
-            //node.Nodes.Add(treeNode);
             node.Nodes.Add(treeNode);
+            ShapeDictionary.Add(treeNode, shape);
+            if (shape.enabled)
+            {
+                treeNode.BackColor = Color.MediumSlateBlue;
+                treeNode.ForeColor = Color.White;
+            }
             if (shape is Group)
             {
                 foreach(var shap in shape as Group)
@@ -47,18 +62,16 @@ namespace OOP_4
                 }
             }
             _viewer.ExpandAll();
-
         }
-
-
-        private class Node
+        public void enabled(TreeNode treeNode)
         {
-            List<Node> nodes;
-            public void Add(Node node)
+            foreach(var shape in ShapeDictionary)
             {
-                nodes.Add(node);
+                shape.Value.enabled = false;
+                shape.Key.BackColor = Color.White;
+                shape.Key.ForeColor = Color.Black;
             }
+            ShapeDictionary[treeNode].enabled = true;
         }
-
     }
 }

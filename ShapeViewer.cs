@@ -14,17 +14,18 @@ namespace OOP_4
 {
     public interface IObserver
     {
-        void Update(ISubject subject);
+        void Update(ISubject subject, ShapeViewer shapeViewer);
     }
     public interface ISubject
     {
         void Attach(IObserver observer);
         void Detach(IObserver observer);
-        void NotifyEveryone();
+        void NotifyEveryone(ShapeViewer shapeViewer);
     }
     public interface IGroup
     {
         void ungroup();
+        void deleteEnabled();
     }
     public interface ISaveLoad
     {

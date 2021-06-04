@@ -65,7 +65,16 @@ namespace OOP_4
             foreach (var shape in shapes)
             {
                 if (shape.enabled)
-                    shapes.Remove(shape);
+                {
+                    if (shape is IGroup)
+                    {
+                        (shape as IGroup).deleteEnabled();
+                    }
+                    else
+                    {
+                        shapes.Remove(shape);
+                    }
+                }
             }
         }
         static void col(MyListShape shapes)
@@ -81,8 +90,8 @@ namespace OOP_4
             ["Синий"] = Brushes.Blue,
             ["Коричневый"] = Brushes.Brown,
             ["Желтый"] = Brushes.Yellow,
-            ["Черный"] = Brushes.Black
-
+            ["Черный"] = Brushes.Black,
+            ["Аква"] = Brushes.Aqua
         };
 
         const int displacement = 10;
@@ -95,6 +104,7 @@ namespace OOP_4
         };
 
         MyListShape shapes = new MyListShape();
+        TreeViewer tree;
 
         public Form1()
         {
@@ -103,7 +113,7 @@ namespace OOP_4
             {
                 Color_comboBox.Items.Add(color_item.Key);
             }
-            TreeViewer tree = new TreeViewer(treeView1);
+            tree = new TreeViewer(treeView1, shapes);
             shapes.Attach(tree);
         }
 
@@ -116,7 +126,8 @@ namespace OOP_4
             if (SelectionMode_checkBox.Checked)
             {
                 bool flag = true;
-                for (var i = shapes.Count - 1; i >= 0; i--)
+                shapes.IsHitIn(e.Location, ctrl_key);
+                /*for (var i = shapes.Count - 1; i >= 0; i--)
                 {
                     ShapeViewer shape = shapes.ElementAt(i);
                     if (ctrl_key)
@@ -140,7 +151,7 @@ namespace OOP_4
                             shape.enabled = false;
                         }
                     }
-                }
+                }*/
             }
             else
             {
@@ -314,7 +325,7 @@ namespace OOP_4
 
         private void ungrouping_button_Click(object sender, EventArgs e)
         {
-            foreach (var shape in shapes) 
+            foreach (var shape in shapes)
             {
                 if (shape.enabled && shape is IGroup)
                 {
@@ -355,7 +366,7 @@ namespace OOP_4
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(filename == null)
+            if (filename == null)
             {
                 сохранитьКакToolStripMenuItem_Click(sender, e);
             }
@@ -413,7 +424,7 @@ namespace OOP_4
             }
             pictureBox.Invalidate();
         }
-       
+
         private void Menu_panel_Paint(object sender, PaintEventArgs e)
         {
 
@@ -421,10 +432,16 @@ namespace OOP_4
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
+            tree.enabled(treeView1.SelectedNode);
+            pictureBox.Invalidate();
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
         {
 
         }
@@ -478,3 +495,4 @@ namespace OOP_4
         }
     }
 }
+

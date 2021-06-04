@@ -11,11 +11,11 @@ namespace OOP_4
     class Group : ListShape<ShapeViewer>, ShapeViewer, ISubject, IGroup
     {
         MyListShape shapes;
-        public void NotifyEveryone()
+        public void NotifyEveryone(ShapeViewer shapeViewer)
         {
             foreach (var obs in shapes._observers)
             {
-                obs.Update(shapes);
+                obs.Update(shapes, shapeViewer);
             }
         }
         public Group(MyListShape shapeViewers) : base()
@@ -72,7 +72,8 @@ namespace OOP_4
             {
                 foreach (var shape in this)
                 {
-                    shape.color = value;
+                    if(shape.enabled)
+                        shape.color = value;
                 }
             }
         }
@@ -82,7 +83,8 @@ namespace OOP_4
             {
                 foreach (var shape in this)
                 {
-                    return shape.enabled;
+                    if(shape.enabled)
+                        return shape.enabled;
                 }
                 return false;
             }
@@ -118,7 +120,10 @@ namespace OOP_4
         {
             foreach (var shape in this)
             {
-                shape.MoveOn(dx, dy, workspace);
+                if (shape.enabled)
+                {
+                    shape.MoveOn(dx, dy, workspace);
+                }
             }
             return true;
         }
@@ -127,7 +132,8 @@ namespace OOP_4
         {
             foreach (var shape in this)
             {
-                shape.resize(new_size);
+                if (shape.enabled)
+                    shape.resize(new_size);
             }
         }
 
@@ -135,14 +141,15 @@ namespace OOP_4
         {
             foreach (var shape in this)
             {
-                shape.resizeOn(dsize);
+                if (shape.enabled)
+                    shape.resizeOn(dsize);
             }
         }
         public void ungroup()
         {
             this.Clear();
             shapes.Remove(this);
-            NotifyEveryone();
+            NotifyEveryone(null);
         }
 
         public void save(StreamWriter writer)
@@ -179,6 +186,17 @@ namespace OOP_4
         public void Detach(IObserver observer)
         {
             shapes.Detach(observer);
+        }
+
+        public void deleteEnabled()
+        {
+            foreach(var shape in this)
+            {
+                if (shape.enabled)
+                {
+                    Remove(shape);
+                }
+            }
         }
     }
 }

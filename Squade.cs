@@ -17,6 +17,8 @@ namespace OOP_4
         public override bool IsHitIn(Point e)
         {
             return Math.Abs(_position.X - e.X) * 2 < _side && Math.Abs(_position.Y - e.Y) * 2 < _side;
+
         }
     }
+
 }
